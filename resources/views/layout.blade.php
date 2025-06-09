@@ -72,7 +72,8 @@
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
-            <a class="cta-btn" href="/admin/login">Login</a>
+            <a class="cta-btn" href="/user/login">Login user</a>
+            <a class="cta-btn" href="/admin/login">Login admin</a>
 
         </div>
     </header>
