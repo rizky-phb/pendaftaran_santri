@@ -10,10 +10,5 @@ class EditUploadBerkas extends EditRecord
 {
     protected static string $resource = UploadBerkasResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
+    
 }

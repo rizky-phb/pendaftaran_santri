@@ -10,10 +10,5 @@ class EditDataSantri extends EditRecord
 {
     protected static string $resource = DataSantriResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
+    
 }

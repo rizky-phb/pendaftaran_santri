@@ -13,16 +13,18 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SelectColumn;
 use App\Mail\AkunDibuatMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class UploadBerkasResource extends Resource
 {
     protected static ?string $model = UploadBerkas::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
 
     protected static ?string $navigationLabel = 'Upload Berkas'; // Label di sidebar
 
@@ -31,97 +33,49 @@ class UploadBerkasResource extends Resource
     protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
     protected static ?int $navigationSort = 2; // ← Tambahkan ini untuk posisi
 
+
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                TextInput::make('nama_lengkap')
-                    ->required()
-                    ->maxLength(255),
-
-                TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->unique(ignoreRecord: true)
-                    ->maxLength(255),
-
-                TextInput::make('no_hp')
-                    ->label('No. HP')
-                    ->required()
-                    ->maxLength(15)
-                    ->rule('regex:/^(?:\+62|62|0)8[1-9][0-9]{6,10}$/')
-                    ->helperText('Masukkan nomor HP Indonesia yang valid, contoh: 081234567890'),
-
-                Forms\Components\Textarea::make('alamat')
-                    ->label('Alamat')
-                    ->rows(4)
-                    ->required(),
-
-            ]);
+        // Daftar nama berkas yang harus diupload
+        return $form->schema([
+            FileUpload::make('berkas_fc_sttb'),
+            FileUpload::make('berkas_skhun'),
+            FileUpload::make('berkas_pas_foto'),
+            FileUpload::make('berkas_akte_kelahiran'),
+            FileUpload::make('berkas_blangko_pendaftaran'),
+            FileUpload::make('berkas_nisn'),
+            FileUpload::make('berkas_kartu_keluarga')
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('nama_lengkap')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('email')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('no_hp')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('alamat')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('created_at')
-                    ->label('Created')
-                    ->dateTime('d M Y')
-                    ->sortable(),
+                TextColumn::make('berkas_fc_sttb')
+                ->searchable()
+                ->sortable(),
+                TextColumn::make('berkas_skhun')
+                ->searchable()
+                ->sortable(),
+                TextColumn::make('berkas_pas_foto')
+                ->searchable()
+                ->sortable(),
+                TextColumn::make('berkas_akte_kelahiran')
+                ->searchable()
+                ->sortable(),
+                TextColumn::make('berkas_blangko_pendaftaran')
+                ->searchable()
+                ->sortable(),
+                TextColumn::make('berkas_nisn')
+                ->searchable()
+                ->sortable(),
+                TextColumn::make('berkas_kartu_keluarga')
+                ->searchable()
+                ->sortable(),
             ])
             ->actions([
-                // admin memverifikasi data yg dikirim pendaftar lalu mengklik tombol centang yang artinya user diperbolehkan untuk mendaftar dan user diberi akun role user, username dan password (password bisa automatis pake default 123 atau sesuatu yg unik dari nama email, nama lengkap dan alamatnya ) biar bisa login dan mengupload berkas untuk benar benar mendaftar
-                Tables\Actions\Action::make('verifikasi')
-                ->label('Verifikasi & Buat Akun')
-                ->icon('heroicon-o-check')
-                ->color('success')
-                ->action(function (UploadBerkas $record) {
-                    $password = '123456'; // atau generate dinamis
-
-                    $existingUser = \App\Models\User::where('email', $record->email)->first();
-
-                    if (!$existingUser) {
-                        \App\Models\User::create([
-                            'name' => $record->nama_lengkap,
-                            'email' => $record->email,
-                            'password' => bcrypt($password),
-                            'role' => 'user',
-                        ]);
-
-                        // Kirim email ke pendaftar
-                        Mail::to($record->email)->send(new AkunDibuatMail(
-                            $record->nama_lengkap,
-                            $record->email,
-                            $password
-                        ));
-                    }
-
-                    $record->update([
-                        'status' => 'terverifikasi',
-                    ]);
-                })
-                ->requiresConfirmation()
-                ->visible(fn (UploadBerkas $record) =>
-                    !\App\Models\User::where('email', $record->email)->exists()
-                )
-                ->successNotificationTitle('Akun berhasil dibuat & email telah dikirim!'),
-
+                Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
@@ -140,8 +94,15 @@ class UploadBerkasResource extends Resource
 
     public static function getPages(): array
     {
+        $hasdata = UploadBerkas::query()->where('user_id', Auth::id())->exists();
+        if ($hasdata){
+            return [
+                'index' => Pages\ListUploadBerkas::route('/'),
+                'edit' => Pages\EditUploadBerkas::route('/{record}/edit'),
+            ];
+        }
         return [
-            'index' => Pages\ListUploadBerkass::route('/'),
+            'index' => Pages\ListUploadBerkas::route('/'),
             'create' => Pages\CreateUploadBerkas::route('/create'),
             'edit' => Pages\EditUploadBerkas::route('/{record}/edit'),
         ];

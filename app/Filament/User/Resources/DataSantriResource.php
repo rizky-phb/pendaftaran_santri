@@ -10,20 +10,18 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\SelectColumn;
-use App\Mail\AkunDibuatMail;
-use Illuminate\Support\Facades\Mail;use Filament\Forms\Components\DatePicker;
-
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Textarea;
+use Illuminate\Support\Facades\Auth;
 
 class DataSantriResource extends Resource
 {
     protected static ?string $model = DataSantri::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
 
     protected static ?string $navigationLabel = 'Data Santri'; // Label di sidebar
 
@@ -35,40 +33,70 @@ class DataSantriResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                TextInput::make('nama_lengkap')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('nisn')
-                    ->label('NISN')
-                    ->required()
-                    ->numeric() // Validasi angka
-                    ->maxLength(100)
-                    ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
-                    ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser)
-                DatePicker::make('tanggal_lahir')
-                    ->label('Tanggal Lahir')
-                    ->required(),
-                TextInput::make('tempat_lahir')
-                    ->required()
-                    ->maxLength(100),
-                TextInput::make('agama')
-                    ->required()
-                    ->maxLength(100),
-                Select::make('jenis_kelamin')
-                    ->options([
-                        'laki-laki' => 'Laki-laki',
-                        'perempuan' => 'Perempuan',
-                    ])
-                    ->required()
-                    ->default('laki-laki'),
-                Forms\Components\Textarea::make('alamat')
-                    ->label('Alamat')
-                    ->rows(4)
-                    ->required(),
+        ->schema([
+            TextInput::make('nama_lengkap')->required(),
+            TextInput::make('nisn')
+            ->label('NISN')
+            ->required()
+            ->numeric() // Validasi angka
+            ->maxLength(100)
+            ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
+            ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser)
+            DatePicker::make('tanggal_lahir')->required(),
+            TextInput::make('tempat_lahir')->required(),
+            TextInput::make('agama')->required(),
+            Select::make('jenis_kelamin')
+                ->options([
+                    'laki-laki' => 'Laki-laki',
+                    'perempuan' => 'Perempuan',
+                ])
+                ->required(),
+            Textarea::make('alamat')->required(),
+        ]);
+    }
 
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->query(
+                DataSantri::query()->where('user_id', Auth::id())
+            )
+            ->columns([
+                TextColumn::make('nama_lengkap')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('nisn')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('tanggal_lahir')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('tempat_lahir')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('agama')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('jenis_kelamin')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('alamat')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('user_id')
+                ->searchable()
+                ->sortable(),
+
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
             ]);
     }
+
     public static function getRelations(): array
     {
         return [
@@ -78,8 +106,17 @@ class DataSantriResource extends Resource
 
     public static function getPages(): array
     {
+        $hasdata = DataSantri::query()->where('user_id', Auth::id())->exists();
+        if ($hasdata){
+            return [
+                'index' => Pages\ListDataSantris::route('/'),
+                'edit' => Pages\EditDataSantri::route('/{record}/edit'),
+            ];
+        }
         return [
-            'index' => Pages\CreateDataSantri::route('/'),
+            'index' => Pages\ListDataSantris::route('/'),
+            'create' => Pages\CreateDataSantri::route('/create'),
+            'edit' => Pages\EditDataSantri::route('/{record}/edit'),
         ];
     }
 }

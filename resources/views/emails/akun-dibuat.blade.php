@@ -9,6 +9,6 @@
     <li>Password: {{ $password }}</li>
 </ul>
 
-<p>Silakan login ke http://127.0.0.1:8000/admin/login sistem dan ubah password Anda jika diperlukan.</p>
+<p>Silakan login ke http://127.0.0.1:8000/user/login sistem dan ubah password Anda jika diperlukan.</p>
 
 <p>Terima kasih.</p>

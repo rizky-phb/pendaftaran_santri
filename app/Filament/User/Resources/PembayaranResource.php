@@ -17,12 +17,13 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SelectColumn;
 use App\Mail\AkunDibuatMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class PembayaranResource extends Resource
 {
     protected static ?string $model = Pembayaran::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     protected static ?string $navigationLabel = 'Pembayaran'; // Label di sidebar
 
@@ -86,49 +87,11 @@ class PembayaranResource extends Resource
                     ->sortable(),
             ])
             ->actions([
-                // admin memverifikasi data yg dikirim pendaftar lalu mengklik tombol centang yang artinya user diperbolehkan untuk mendaftar dan user diberi akun role user, username dan password (password bisa automatis pake default 123 atau sesuatu yg unik dari nama email, nama lengkap dan alamatnya ) biar bisa login dan mengupload berkas untuk benar benar mendaftar
-                Tables\Actions\Action::make('verifikasi')
-                ->label('Verifikasi & Buat Akun')
-                ->icon('heroicon-o-check')
-                ->color('success')
-                ->action(function (Pembayaran $record) {
-                    $password = '123456'; // atau generate dinamis
 
-                    $existingUser = \App\Models\User::where('email', $record->email)->first();
-
-                    if (!$existingUser) {
-                        \App\Models\User::create([
-                            'name' => $record->nama_lengkap,
-                            'email' => $record->email,
-                            'password' => bcrypt($password),
-                            'role' => 'user',
-                        ]);
-
-                        // Kirim email ke pendaftar
-                        Mail::to($record->email)->send(new AkunDibuatMail(
-                            $record->nama_lengkap,
-                            $record->email,
-                            $password
-                        ));
-                    }
-
-                    $record->update([
-                        'status' => 'terverifikasi',
-                    ]);
-                })
-                ->requiresConfirmation()
-                ->visible(fn (Pembayaran $record) =>
-                    !\App\Models\User::where('email', $record->email)->exists()
-                )
-                ->successNotificationTitle('Akun berhasil dibuat & email telah dikirim!'),
 
                 Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
+
     }
 
     public static function getRelations(): array
@@ -142,8 +105,6 @@ class PembayaranResource extends Resource
     {
         return [
             'index' => Pages\ListPembayarans::route('/'),
-            'create' => Pages\CreatePembayaran::route('/create'),
-            'edit' => Pages\EditPembayaran::route('/{record}/edit'),
         ];
     }
 }

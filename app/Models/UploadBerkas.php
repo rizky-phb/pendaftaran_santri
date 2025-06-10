@@ -17,8 +17,13 @@ class UploadBerkas extends Model
      */
     protected $fillable = [
         'user_id',
-        'nama_berkas',
-        'path',
+        'berkas_fc_sttb',
+        'berkas_skhun',
+        'berkas_pas_foto',
+        'berkas_akte_kelahiran',
+        'berkas_blangko_pendaftaran',
+        'berkas_nisn',
+        'berkas_kartu_keluarga',
         'status',
     ];
 }

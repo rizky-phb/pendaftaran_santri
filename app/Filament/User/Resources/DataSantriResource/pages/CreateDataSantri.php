@@ -16,4 +16,8 @@ class CreateDataSantri extends CreateRecord
         $data['user_id'] = Auth::id(); // Mengisi otomatis dari user yang login
         return $data;
     }
+    protected function getRedirectedUrl():string
+    {
+        return route('filament.user.resources.listdatasantri');
+    }
 }

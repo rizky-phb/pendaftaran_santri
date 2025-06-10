@@ -10,10 +10,5 @@ class EditPembayaran extends EditRecord
 {
     protected static string $resource = PembayaranResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
+    
 }

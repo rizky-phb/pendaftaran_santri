@@ -10,10 +10,4 @@ class EditDataOrtu extends EditRecord
 {
     protected static string $resource = DataOrtuResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
 }

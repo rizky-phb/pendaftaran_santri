@@ -16,6 +16,7 @@ class DataOrtu extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'user_id',
         'nama_ayah',
         'nik_ayah',
         'pendidikan_terakhir_ayah',

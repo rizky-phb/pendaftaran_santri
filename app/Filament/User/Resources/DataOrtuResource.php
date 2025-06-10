@@ -16,6 +16,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SelectColumn;
+use Illuminate\Support\Facades\Auth;
 
 class DataOrtuResource extends Resource
 {
@@ -35,73 +36,99 @@ class DataOrtuResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
+                TextInput::make('nama_ayah')
                     ->required()
                     ->maxLength(255),
-
-                TextInput::make('email')
-                    ->email()
+                TextInput::make('nama_ibu')
                     ->required()
-                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
+                TextInput::make('nik_ayah')
+                    ->label('NIK Ayah')
+                    ->required()
+                    ->numeric() // Validasi angka
+                    ->maxLength(17)
+                    ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
+                    ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser);
+                TextInput::make('nik_ibu')
+                    ->label('NIK Ibu')
+                    ->required()
+                    ->numeric() // Validasi angka
+                    ->maxLength(17)
+                    ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
+                    ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser);;
+                TextInput::make('pendidikan_terakhir_ayah')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('pendidikan_terakhir_ibu')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('pekerjaan_ayah')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('pekerjaan_ibu')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('no_hp_ayah')
+                    ->label('No HP Ayah')
+                    ->required()
+                    ->numeric() // Validasi angka
+                    ->maxLength(100)
+                    ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
+                    ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser);
+                TextInput::make('no_hp_ibu')
+                    ->label('No HP ibu')
+                    ->required()
+                    ->numeric() // Validasi angka
+                    ->maxLength(100)
+                    ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
+                    ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser);
 
-                TextInput::make('password')
-                    ->password()
-                    ->required(fn (string $context) => $context === 'create') // Hanya required saat create
-                    ->dehydrateStateUsing(fn (string $state) => bcrypt($state)) // Enkripsi password otomatis
-                    ->dehydrated(fn (?string $state) => filled($state)) // Hanya update jika tidak kosong
-                    ->label('Password'),
-                Select::make('role')
-                    ->options([
-                        'admin' => 'Admin',
-                        'user' => 'User',
-                    ])
-                    ->default('user')
-                    ->required(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->query(
+                DataOrtu::query()->where('user_id', Auth::id())
+            )
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('nama_ayah')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('email')
+                TextColumn::make('nik_ayah')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('role')
-                    ->badge()
-                    ->colors([
-                        'primary' => 'admin',
-                        'success' => 'user',
-                    ])
+                TextColumn::make('pendidikan_terakhir_ayah')
+                    ->searchable()
                     ->sortable(),
 
-                TextColumn::make('created_at')
-                    ->label('Created')
-                    ->dateTime('d M Y')
+                TextColumn::make('pekerjaan_ayah')
+                    ->searchable()
                     ->sortable(),
-            ])
-            ->filters([
-                Tables\Filters\SelectFilter::make('role')
-                    ->options([
-                        'admin' => 'Admin',
-                        'user' => 'User',
-                    ])
-                    ->label('Filter by Role'),
+                TextColumn::make('no_hp_ayah')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('nama_ibu')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('nik_ibu')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('pendidikan_terakhir_ibu')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('pekerjaan_ibu')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('no_hp_ibu')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 
@@ -114,8 +141,16 @@ class DataOrtuResource extends Resource
 
     public static function getPages(): array
     {
+        $hasdata = DataOrtu::query()->where('user_id', Auth::id())->exists();
+        if ($hasdata){
+            return [
+                'index' => Pages\ListDataOrtu::route('/'),
+                'edit' => Pages\EditDataOrtu::route('/{record}/edit'),
+            ];
+        }
         return [
             'index' => Pages\ListDataOrtu::route('/'),
+            'create' => Pages\CreateDataOrtu::route('/create'),
             'edit' => Pages\EditDataOrtu::route('/{record}/edit'),
         ];
     }
