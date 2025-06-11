@@ -21,7 +21,6 @@ class Pembayaran extends Model
         'jumlah',
         'tanggal_bayar',
         'status',
-        'user_id',
         'bukti_transfer',
     ];
 }

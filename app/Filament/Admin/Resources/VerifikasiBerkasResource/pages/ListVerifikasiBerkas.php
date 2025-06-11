@@ -10,10 +10,9 @@ class ListVerifikasiBerkas extends ListRecords
 {
     protected static string $resource = VerifikasiBerkasResource::class;
 
+    protected static ?string $title = 'Data Santri';
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        return [];
     }
 }

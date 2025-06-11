@@ -36,28 +36,43 @@ class PembayaranResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('nama_lengkap')
+                Select::make('user_id')
+                    ->relationship('user', 'name')
                     ->required()
-                    ->maxLength(255),
+                    ->label('Nama Pengguna'),
 
-                TextInput::make('email')
-                    ->email()
+                Select::make('jenis_pembayaran')
+                    ->options([
+                        'registrasi' => 'Registrasi',
+                        'spp' => 'SPP',
+                        'lainnya' => 'Lainnya',
+                    ])
                     ->required()
-                    ->unique(ignoreRecord: true)
-                    ->maxLength(255),
+                    ->label('Jenis Pembayaran'),
 
-                TextInput::make('no_hp')
-                    ->label('No. HP')
+                TextInput::make('jumlah')
+                    ->numeric()
                     ->required()
-                    ->maxLength(15)
-                    ->rule('regex:/^(?:\+62|62|0)8[1-9][0-9]{6,10}$/')
-                    ->helperText('Masukkan nomor HP Indonesia yang valid, contoh: 081234567890'),
+                    ->label('Jumlah'),
 
-                Forms\Components\Textarea::make('alamat')
-                    ->label('Alamat')
-                    ->rows(4)
-                    ->required(),
+                TextInput::make('tanggal_bayar')
+                    ->type('date')
+                    ->required()
+                    ->label('Tanggal Bayar'),
 
+                Select::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'diterima' => 'Diterima',
+                        'ditolak' => 'Ditolak',
+                    ])
+                    ->required()
+                    ->label('Status'),
+
+                Forms\Components\FileUpload::make('bukti_transfer')
+                    ->label('Bukti Transfer')
+                    ->required()
+                    ->directory('bukti_transfer'),
             ]);
     }
 
@@ -65,21 +80,33 @@ class PembayaranResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('nama_lengkap')
+                TextColumn::make('user.name')
+                    ->label('Nama Pengguna')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('email')
+                TextColumn::make('jenis_pembayaran')
+                    ->label('Jenis Pembayaran')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('no_hp')
-                    ->searchable()
+                TextColumn::make('jumlah')
+                    ->label('Jumlah')
                     ->sortable(),
 
-                TextColumn::make('alamat')
-                    ->searchable()
+                TextColumn::make('tanggal_bayar')
+                    ->label('Tanggal Bayar')
+                    ->date('d M Y')
                     ->sortable(),
+
+                TextColumn::make('status')
+                    ->label('Status')
+                    ->sortable(),
+
+                TextColumn::make('bukti_transfer')
+                    ->label('Bukti Transfer')
+                    ->limit(20)
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
                     ->label('Created')
@@ -87,11 +114,8 @@ class PembayaranResource extends Resource
                     ->sortable(),
             ])
             ->actions([
-
-
                 Tables\Actions\DeleteAction::make(),
             ]);
-
     }
 
     public static function getRelations(): array
@@ -105,6 +129,7 @@ class PembayaranResource extends Resource
     {
         return [
             'index' => Pages\ListPembayarans::route('/'),
+            'bayar' => Pages\BayarPembayaran::route('/bayar'),
         ];
     }
 }

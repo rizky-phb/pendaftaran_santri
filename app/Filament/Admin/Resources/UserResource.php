@@ -28,7 +28,6 @@ class UserResource extends Resource
 
     protected static ?string $navigationGroup = 'Role'; // Group menu
 
-
     public static function form(Form $form): Form
     {
         return $form

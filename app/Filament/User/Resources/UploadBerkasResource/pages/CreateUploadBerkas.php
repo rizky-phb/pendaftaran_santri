@@ -15,4 +15,9 @@ class CreateUploadBerkas extends CreateRecord
         $data['user_id'] = Auth::id(); // Mengisi otomatis dari user yang login
         return $data;
     }
+    public static function canCreateAnother(): bool
+    {
+        return false;
+    }
+
 }

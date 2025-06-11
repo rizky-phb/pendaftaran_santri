@@ -38,13 +38,28 @@ class UploadBerkasResource extends Resource
     {
         // Daftar nama berkas yang harus diupload
         return $form->schema([
-            FileUpload::make('berkas_fc_sttb'),
-            FileUpload::make('berkas_skhun'),
-            FileUpload::make('berkas_pas_foto'),
-            FileUpload::make('berkas_akte_kelahiran'),
-            FileUpload::make('berkas_blangko_pendaftaran'),
-            FileUpload::make('berkas_nisn'),
+            FileUpload::make('berkas_fc_sttb')
+            ->label('upload fc sttb')
+            ->disk('public')
+            ->directory('uploads'),
+            FileUpload::make('berkas_skhun')
+            ->disk('public')
+            ->directory('uploads'),
+            FileUpload::make('berkas_pas_foto')
+            ->disk('public')
+            ->directory('uploads'),
+            FileUpload::make('berkas_akte_kelahiran')
+            ->disk('public')
+            ->directory('uploads'),
+            FileUpload::make('berkas_blangko_pendaftaran')
+            ->disk('public')
+            ->directory('uploads'),
+            FileUpload::make('berkas_nisn')
+            ->disk('public')
+            ->directory('uploads'),
             FileUpload::make('berkas_kartu_keluarga')
+            ->disk('public')
+            ->directory('uploads'),
         ]);
     }
 
@@ -53,26 +68,133 @@ class UploadBerkasResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('berkas_fc_sttb')
-                ->searchable()
-                ->sortable(),
+                    ->label('FC STTB')
+                    ->formatStateUsing(function ($state) {
+                        if ($state) {
+                            $url = asset('storage/' . $state);
+                            $ext = strtolower(pathinfo($state, PATHINFO_EXTENSION));
+                            if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'])) {
+                                return '<div style="text-align:center;">
+                                    <img src="' . $url . '" alt="FC STTB" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
+                                    <br>
+                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                </div>';
+                            }
+                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                        }
+                        return '-';
+                    })
+                    ->html(),
                 TextColumn::make('berkas_skhun')
-                ->searchable()
-                ->sortable(),
+                    ->label('SKHUN')
+                    ->formatStateUsing(function ($state) {
+                        if ($state) {
+                            $url = asset('storage/' . $state);
+                            $ext = strtolower(pathinfo($state, PATHINFO_EXTENSION));
+                            if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'])) {
+                                return '<div style="text-align:center;">
+                                    <img src="' . $url . '" alt="SKHUN" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
+                                    <br>
+                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                </div>';
+                            }
+                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                        }
+                        return '-';
+                    })
+                    ->html(),
                 TextColumn::make('berkas_pas_foto')
-                ->searchable()
-                ->sortable(),
+                    ->label('Pas Foto')
+                    ->formatStateUsing(function ($state) {
+                        if ($state) {
+                            $url = asset('storage/' . $state);
+                            $ext = strtolower(pathinfo($state, PATHINFO_EXTENSION));
+                            if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'])) {
+                                return '<div style="text-align:center;">
+                                    <img src="' . $url . '" alt="Pas Foto" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
+                                    <br>
+                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                </div>';
+                            }
+                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                        }
+                        return '-';
+                    })
+                    ->html(),
                 TextColumn::make('berkas_akte_kelahiran')
-                ->searchable()
-                ->sortable(),
+                    ->label('Akte Kelahiran')
+                    ->formatStateUsing(function ($state) {
+                        if ($state) {
+                            $url = asset('storage/' . $state);
+                            $ext = strtolower(pathinfo($state, PATHINFO_EXTENSION));
+                            if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'])) {
+                                return '<div style="text-align:center;">
+                                    <img src="' . $url . '" alt="Akte Kelahiran" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
+                                    <br>
+                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                </div>';
+                            }
+                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                        }
+                        return '-';
+                    })
+                    ->html(),
                 TextColumn::make('berkas_blangko_pendaftaran')
-                ->searchable()
-                ->sortable(),
+                    ->label('Blangko Pendaftaran')
+                    ->formatStateUsing(function ($state) {
+                        if ($state) {
+                            $url = asset('storage/' . $state);
+                            $ext = strtolower(pathinfo($state, PATHINFO_EXTENSION));
+                            if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'])) {
+                                return '<div style="text-align:center;">
+                                    <img src="' . $url . '" alt="Blangko Pendaftaran" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
+                                    <br>
+                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                </div>';
+                            }
+                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                        }
+                        return '-';
+                    })
+                    ->html(),
                 TextColumn::make('berkas_nisn')
-                ->searchable()
-                ->sortable(),
+                    ->label('NISN')
+                    ->formatStateUsing(function ($state) {
+                        if ($state) {
+                            $url = asset('storage/' . $state);
+                            $ext = strtolower(pathinfo($state, PATHINFO_EXTENSION));
+                            if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'])) {
+                                return '<div style="text-align:center;">
+                                    <img src="' . $url . '" alt="NISN" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
+                                    <br>
+                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                </div>';
+                            }
+                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                        }
+                        return '-';
+                    })
+                    ->html(),
                 TextColumn::make('berkas_kartu_keluarga')
-                ->searchable()
-                ->sortable(),
+                    ->label('Kartu Keluarga')
+                    ->formatStateUsing(function ($state) {
+                        if ($state) {
+                            $url = asset('storage/' . $state);
+                            $ext = strtolower(pathinfo($state, PATHINFO_EXTENSION));
+                            if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'])) {
+                                return '<div style="text-align:center;">
+                                    <img src="' . $url . '" alt="Kartu Keluarga" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
+                                    <br>
+                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                </div>';
+                            }
+                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                        }
+                        return '-';
+                    })
+                    ->html(),
+                    TextColumn::make('status')
+                    ->label('Status'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -84,7 +206,6 @@ class UploadBerkasResource extends Resource
                 ]),
             ]);
     }
-
     public static function getRelations(): array
     {
         return [

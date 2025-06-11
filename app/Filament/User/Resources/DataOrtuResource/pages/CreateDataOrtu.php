@@ -11,6 +11,10 @@ use App\Models\DataOrtu;
 class CreateDataOrtu extends CreateRecord
 {
     protected static string $resource = DataOrtuResource::class;
+    public static function canCreateAnother(): bool
+    {
+        return false;
+    }
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['user_id'] = Auth::id(); // Mengisi otomatis dari user yang login

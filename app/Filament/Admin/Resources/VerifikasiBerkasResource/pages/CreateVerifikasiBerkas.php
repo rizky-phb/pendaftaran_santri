@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateVerifikasiBerkas extends CreateRecord
 {
     protected static string $resource = VerifikasiBerkasResource::class;
+    public static function canCreateAnother(): bool
+    {
+        return false;
+    }
 }

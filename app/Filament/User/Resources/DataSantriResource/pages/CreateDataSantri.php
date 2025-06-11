@@ -20,4 +20,8 @@ class CreateDataSantri extends CreateRecord
     {
         return route('filament.user.resources.listdatasantri');
     }
+    public static function canCreateAnother(): bool
+    {
+        return false;
+    }
 }
