@@ -81,4 +81,15 @@ class Login extends Component
     {
         return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
     }
+
+    public function getHeaderActions(): array
+    {
+        return [
+            Action::make('back_to_home')
+                ->label('Back to Home')
+                ->url('/')
+                ->color('primary')
+                ->icon('heroicon-o-arrow-left'),
+        ];
+    }
 }

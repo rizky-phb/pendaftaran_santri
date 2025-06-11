@@ -1,5 +1,5 @@
 @if (auth()->user()->role !== 'admin')
-    <script>window.location = "{{ url('/') }}";</script>
+    <script>window.location = "{{ url('/user') }}";</script>
 @else
 <x-filament::page>
     <h1 class="text-2xl font-bold">Selamat datang di Dashboard Admin</h1>

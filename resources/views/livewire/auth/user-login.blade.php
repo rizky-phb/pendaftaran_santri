@@ -40,6 +40,11 @@
         <div class="flex items-center justify-end">
             <flux:button variant="primary" type="submit" class="w-full">{{ __('Log in') }}</flux:button>
         </div>
+    @foreach($this->getHeaderActions() as $action)
+        <a href="{{ $action->getUrl() }}" class="btn btn-primary">
+            <i class="{{ $action->getIcon() }}"></i> {{ $action->getLabel() }}
+        </a>
+    @endforeach
 
     </form>
     <flux:button tag="a" href="/" variant="secondary" class="w-full text-center">
