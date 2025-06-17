@@ -8,16 +8,19 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
+    /**u
      * Seed the application's database.
      */
     public function run(): void
     {
         // User::factory(10)->create();
 
+        // Make sure 'role' column exists in your users table and UserFactory supports these fields
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'role' => 'admin',
+            'password' => bcrypt('12345678'), // Password yang di-hash
         ]);
     }
 }

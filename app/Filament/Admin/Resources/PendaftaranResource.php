@@ -35,8 +35,15 @@ class PendaftaranResource extends Resource
         return $form
             ->schema([
                 TextInput::make('nama_lengkap')
-                    ->required()
-                    ->maxLength(255),
+                ->maxLength(35)
+                ->minLength(3)
+                ->extraAttributes([
+                    'pattern' => '[a-zA-Z\s]{3,35}',
+                    'oninput' => "if(this.value.length > 35) this.value = this.value.slice(0,35);",
+                    'title' => "Nama harus 3-35 karakter (hanya huruf dan spasi)",
+                    'onkeydown' => "return !(/[0-9]/.test(event.key));"
+                ])
+                ->required(),
 
                 TextInput::make('email')
                     ->email()
@@ -47,9 +54,16 @@ class PendaftaranResource extends Resource
                 TextInput::make('no_hp')
                     ->label('No. HP')
                     ->required()
-                    ->maxLength(15)
-                    ->rule('regex:/^(?:\+62|62|0)8[1-9][0-9]{6,10}$/')
-                    ->helperText('Masukkan nomor HP Indonesia yang valid, contoh: 081234567890'),
+                    ->tel() // Gunakan input type tel
+                    ->placeholder('08xxxxxxxxxx')
+                    ->maxLength(14)
+                    ->minLength(10)
+                    ->extraAttributes([
+                        'pattern' => '^08[0-9]{8,12}$',
+                        'title' => 'Nomor HP harus diawali 08 dan hanya angka (10-14 digit)',
+                        'oninput' => "if(this.value.length > 14) this.value = this.value.slice(0,14);",
+                        'onkeydown' => "return !(/[a-zA-Z\\s]/.test(event.key));"
+                    ]),
 
                 Forms\Components\Textarea::make('alamat')
                     ->label('Alamat')
@@ -126,6 +140,39 @@ class PendaftaranResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('verifikasi_bulk')
+                        ->label('Verifikasi & Buat Akun')
+                        ->icon('heroicon-o-check')
+                        ->color('success')
+                        ->action(function ($records) {
+                            foreach ($records as $record) {
+                                $password = '123456'; // atau generate dinamis
+
+                                $existingUser = \App\Models\User::where('email', $record->email)->first();
+                                $record->role = 'user';
+                                if (!$existingUser) {
+                                    \App\Models\User::create([
+                                        'name' => $record->nama_lengkap,
+                                        'email' => $record->email,
+                                        'password' => bcrypt($password),
+                                        'role' => $record->role ?? 'user',
+                                    ]);
+
+                                    // Kirim email ke pendaftar
+                                    Mail::to($record->email)->send(new AkunDibuatMail(
+                                        $record->nama_lengkap,
+                                        $record->email,
+                                        $password
+                                    ));
+                                }
+
+                                $record->update([
+                                    'status' => 'terverifikasi',
+                                ]);
+                            }
+                        })
+                        ->requiresConfirmation()
+                        ->successNotificationTitle('Akun berhasil dibuat & email telah dikirim!'),
                 ]),
             ]);
     }

@@ -34,15 +34,32 @@ class DataSantriResource extends Resource
     {
         return $form
         ->schema([
-            TextInput::make('nama_lengkap')->required(),
+            TextInput::make('nama_lengkap')
+                ->maxLength(35)
+                ->minLength(3)
+                ->extraAttributes([
+                    'pattern' => '[a-zA-Z\s]{3,35}',
+                    'oninput' => "if(this.value.length > 35) this.value = this.value.slice(0,35);",
+                    'title' => "Nama harus 3-35 karakter (hanya huruf dan spasi)",
+                    'onkeydown' => "return !(/[0-9]/.test(event.key));"
+                ])
+                ->required(),
             TextInput::make('nisn')
             ->label('NISN')
             ->required()
             ->numeric() // Validasi angka
-            ->maxLength(100)
+            ->maxLength(10)
+            ->minLength(10)
             ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
-            ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser)
-            DatePicker::make('tanggal_lahir')->required(),
+            ->extraAttributes([
+                'pattern' => '[0-9]*',
+                'maxlength' => 10,
+                'title' => "NISN harus 10 karakter (hanya angka)",
+                'onkeydown' => "return (!this.value || this.value.length < 10) || event.key === 'Backspace' || event.key === 'Delete';"
+            ]), // Batasi input hanya angka (untuk browser)
+            DatePicker::make('tanggal_lahir')
+                ->required()
+                ->maxDate(now()->subYears(10)), // Tidak bisa input kurang dari 10 tahun dari sekarang
             TextInput::make('tempat_lahir')->required(),
             TextInput::make('agama')->required(),
             Select::make('jenis_kelamin')
@@ -51,7 +68,10 @@ class DataSantriResource extends Resource
                     'perempuan' => 'Perempuan',
                 ])
                 ->required(),
-            Textarea::make('alamat')->required(),
+            Textarea::make('alamat')
+            ->maxLength(30)
+            ->rows(4)
+            ->required(),
         ]);
     }
 
@@ -88,6 +108,8 @@ class DataSantriResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('user_id')
+                ->hidden() // Sembunyikan kolom user_id dari tabel
+                ->label('User ID')
                 ->searchable()
                 ->sortable(),
 
@@ -109,12 +131,12 @@ class DataSantriResource extends Resource
         $hasdata = DataSantri::query()->where('user_id', Auth::id())->exists();
         if ($hasdata){
             return [
-                'index' => Pages\ListDataSantris::route('/'),
+                'index' => Pages\ListDataSantri::route('/'),
                 'edit' => Pages\EditDataSantri::route('/{record}/edit'),
             ];
         }
         return [
-            'index' => Pages\ListDataSantris::route('/'),
+            'index' => Pages\ListDataSantri::route('/'),
             'create' => Pages\CreateDataSantri::route('/create'),
             'edit' => Pages\EditDataSantri::route('/{record}/edit'),
         ];

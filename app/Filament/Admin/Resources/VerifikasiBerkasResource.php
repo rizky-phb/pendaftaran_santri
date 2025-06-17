@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\VerifikasiBerkasResource\Pages;
 use App\Models\User;
+use App\Models\UploadBerkas;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -18,6 +19,9 @@ use Filament\Forms\Components\downlaodfile;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ExportAction;
+use App\Filament\Admin\Exports\VerifikasiBerkasExporter;
 
 class VerifikasiBerkasResource extends Resource
 {
@@ -138,36 +142,54 @@ class VerifikasiBerkasResource extends Resource
                 ->tel()
                 ->maxLength(20)
                 ->placeholder('08xxxxxxxxxx'),
-            FileUpload::make('berkas.berkas_fc_sttb')
+            View::make('vendor.filament.components.berkas-preview')
                 ->label('FC STTB')
-                ->disk('public')
-                ->directory('uploads')
-                ->downloadable(),
+                ->viewData([
+                    'field' => 'berkas.berkas_fc_sttb',
+                    'label' => 'FC STTB',
 
-            FileUpload::make('berkas.berkas_skhun')
-                ->disk('public')
-                ->directory('uploads')
-                ->downloadable(),
-            FileUpload::make('berkas.berkas_pas_foto')
-                ->disk('public')
-                ->directory('uploads')
-                ->downloadable(),
-            FileUpload::make('berkas.berkas_akte_kelahiran')
-                ->disk('public')
-                ->directory('uploads')
-                ->downloadable(),
-            FileUpload::make('berkas.berkas_blangko_pendaftaran')
-                ->disk('public')
-                ->directory('uploads')
-                ->downloadable(),
-            FileUpload::make('berkas.berkas_nisn')
-                ->disk('public')
-                ->directory('uploads')
-                ->downloadable(),
-            FileUpload::make('berkas.berkas_kartu_keluarga')
-                ->disk('public')
-                ->directory('uploads')
-                ->downloadable(),
+                ]),
+            View::make('vendor.filament.components.berkas-preview')
+                ->label('SKHUN')
+                ->viewData([
+                    'field' => 'berkas.berkas_skhun',
+                    'label' => 'SKHUN',
+                ]),
+
+            View::make('vendor.filament.components.berkas-preview')
+                ->label('Pas Foto')
+                ->viewData([
+                    'field' => 'berkas.berkas_pas_foto',
+                    'label' => 'Pas Foto',
+                ]),
+
+            View::make('vendor.filament.components.berkas-preview')
+                ->label('Akte Kelahiran')
+                ->viewData([
+                    'field' => 'berkas.berkas_akte_kelahiran',
+                    'label' => 'Akte Kelahiran',
+                ]),
+
+            View::make('vendor.filament.components.berkas-preview')
+                ->label('Blangko Pendaftaran')
+                ->viewData([
+                    'field' => 'berkas.berkas_blangko_pendaftaran',
+                    'label' => 'Blangko Pendaftaran',
+                ]),
+
+            View::make('vendor.filament.components.berkas-preview')
+                ->label('NISN')
+                ->viewData([
+                    'field' => 'berkas.berkas_nisn',
+                    'label' => 'NISN',
+                ]),
+
+            View::make('vendor.filament.components.berkas-preview')
+                ->label('Kartu Keluarga')
+                ->viewData([
+                    'field' => 'berkas.berkas_kartu_keluarga',
+                    'label' => 'Kartu Keluarga',
+                ]),
             Select::make('berkas.status')
                 ->label('Status Berkas')
                 ->options([
@@ -175,9 +197,8 @@ class VerifikasiBerkasResource extends Resource
                     'approved' => 'Approved',
                     'rejected' => 'Rejected',
                 ]),
-        ]);
+            ]);
     }
-
 
     public static function table(Table $table): Table
     {
@@ -217,25 +238,24 @@ class VerifikasiBerkasResource extends Resource
                 ->label('nama ayah')
                     ->searchable()
                     ->sortable(),
-
-                TextColumn::make('berkas.berkas_fc_sttb')
-                    ->label('FC STTB')
-                    ->formatStateUsing(function ($state) {
-                        if ($state) {
-                            $url = asset('storage/' . $state);
-                            $ext = strtolower(pathinfo($state, PATHINFO_EXTENSION));
-                            if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'])) {
-                                return '<div style="text-align:center;">
-                                    <img src="' . $url . '" alt="FC STTB" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
-                                    <br>
-                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Detail</a>
-                                </div>';
+                    TextColumn::make('berkas.berkas_fc_sttb')
+                        ->label('FC STTB')
+                        ->formatStateUsing(function ($state) {
+                            if ($state) {
+                                $url = asset('storage/' . $state);
+                                $ext = strtolower(pathinfo($state, PATHINFO_EXTENSION));
+                                if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'])) {
+                                    return '<div style="text-align:center;">
+                                        <img src="' . $url . '" alt="FC STTB" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="window.open(\'' . $url . '\', \'_blank\')" />
+                                        <br>
+                                        <a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline; font-size:12px;">Lihat</a>
+                                    </div>';
+                                }
+                                return '<a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline;">Lihat</a>';
                             }
-                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Detail</a>';
-                        }
-                        return '-';
-                    })
-                    ->html(),
+                            return '-';
+                        })
+                        ->html(),
                 TextColumn::make('berkas.status')
                     ->label('Status')
                     ->searchable()
@@ -251,14 +271,68 @@ class VerifikasiBerkasResource extends Resource
                     ])
                     ->label('Filter by Status'),
             ])
+
             ->actions([
                 Tables\Actions\EditAction::make()
+                    ->color('warning')
                     ->label('Detail'),
+
                 Tables\Actions\DeleteAction::make(),
+
+                Action::make('export-csv-single')
+                    ->label('Export Per Santri (CSV)')
+                    ->url(fn ($record) => 'http://localhost:8000/export-santri/' . $record->id)
+                    ->openUrlInNewTab()
+                    ->icon('heroicon-o-user')
+                    ->color('primary'),
+
+                Action::make('export-pdf-single')
+                    ->label('Export Per Santri (PDF)')
+                    ->url(fn ($record) => 'http://localhost:8000/export-santri/' . $record->id . '/pdf')
+                    ->openUrlInNewTab()
+                    ->icon('heroicon-o-user')
+                    ->color('info'),
             ])
+
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+
+                    Tables\Actions\BulkAction::make('approve_all')
+                        ->label('Approve All')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->action(function ($records) {
+                            foreach ($records as $record) {
+                                if ($record->berkas) {
+                                    $record->berkas->update(['status' => 'approved']);
+                                }
+                            }
+                        }),
+
+                    Tables\Actions\BulkAction::make('reject_all')
+                        ->label('Reject All')
+                        ->icon('heroicon-o-x-circle')
+                        ->color('danger')
+                        ->action(function ($records) {
+                            foreach ($records as $record) {
+                                if ($record->berkas) {
+                                    $record->berkas->update(['status' => 'rejected']);
+                                }
+                            }
+                        }),
+
+                    Tables\Actions\BulkAction::make('pending_all')
+                        ->label('Pending All')
+                        ->icon('heroicon-o-clock')
+                        ->color('warning')
+                        ->action(function ($records) {
+                            foreach ($records as $record) {
+                                if ($record->berkas) {
+                                    $record->berkas->update(['status' => 'pending']);
+                                }
+                            }
+                        }),
                 ]),
             ]);
     }

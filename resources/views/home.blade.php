@@ -14,7 +14,7 @@
                 <p data-aos="fade-up" data-aos-delay="200">"PONDOK PESANTREN /MADRASAH DINIYAH WUSTHO/ ULYA PUTRA-PUTRI"</p>
                 <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
                     <a href="/form-pendaftaran" class="btn-get-started">Ayo Bergabung</a>
-                    <a href="https://youtu.be/ShKL_kCaAXs?si=poWUX5lCFAf2MYd3"
+                    <a href="https://www.youtube.com/watch?v=mza4qE7QHaI&t=25s"
                         class="glightbox btn-watch-video d-flex align-items-center"><i
                             class="bi bi-play-circle"></i><span>Watch Video</span></a>
                 </div>
@@ -210,47 +210,7 @@
         </section><!-- /Program Section -->
 
         <!-- Clients Section -->
-        <section id="clients" class="clients section light-background">
-
-            <div class="container" data-aos="fade-up">
-
-                <div class="row gy-4">
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('frontend/assets/img/clients/client-1.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('frontend/assets/img/clients/client-2.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('frontend/assets/img/clients/client-3.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('frontend/assets/img/clients/client-4.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('frontend/assets/img/clients/client-5.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('frontend/assets/img/clients/client-6.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                </div>
-
-            </div>
-
-        </section><!-- /Clients Section -->
+        <!-- /Clients Section -->
 
         <!-- Visi & Misi Section -->
         <section id="visi & misi" class="features section">
@@ -433,143 +393,6 @@
         </section><!-- /Program & Keunggulan Section -->
 
 
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="testimonials section dark-background">
-
-            <img src="{{ asset('frontend/assets/img/testimonials-bg.jpg') }}" class="testimonials-bg" alt="">
-
-            <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="swiper init-swiper">
-                    <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              }
-            }
-          </script>
-                    <div class="swiper-wrapper">
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="{{ asset('frontend/assets/img/testimonials/testimonials-1.jpg') }}"
-                                    class="testimonial-img" alt="">
-                                <h3>Saul Goodman</h3>
-                                <h4>Ceo &amp; Founder</h4>
-                                <div class="stars">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                        class="bi bi-star-fill"></i>
-                                </div>
-                                <p>
-                                    <i class="bi bi-quote quote-icon-left"></i>
-                                    <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit
-                                        rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam,
-                                        risus at semper.</span>
-                                    <i class="bi bi-quote quote-icon-right"></i>
-                                </p>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="{{ asset('frontend/assets/img/testimonials/testimonials-2.jpg') }}"
-                                    class="testimonial-img" alt="">
-                                <h3>Sara Wilsson</h3>
-                                <h4>Designer</h4>
-                                <div class="stars">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                        class="bi bi-star-fill"></i>
-                                </div>
-                                <p>
-                                    <i class="bi bi-quote quote-icon-left"></i>
-                                    <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid
-                                        cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet
-                                        legam anim culpa.</span>
-                                    <i class="bi bi-quote quote-icon-right"></i>
-                                </p>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="{{ asset('frontend/assets/img/testimonials/testimonials-3.jpg') }}"
-                                    class="testimonial-img" alt="">
-                                <h3>Jena Karlis</h3>
-                                <h4>Store Owner</h4>
-                                <div class="stars">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                        class="bi bi-star-fill"></i>
-                                </div>
-                                <p>
-                                    <i class="bi bi-quote quote-icon-left"></i>
-                                    <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem
-                                        veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint
-                                        minim.</span>
-                                    <i class="bi bi-quote quote-icon-right"></i>
-                                </p>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="{{ asset('frontend/assets/img/testimonials/testimonials-4.jpg') }}"
-                                    class="testimonial-img" alt="">
-                                <h3>Matt Brandon</h3>
-                                <h4>Freelancer</h4>
-                                <div class="stars">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                        class="bi bi-star-fill"></i>
-                                </div>
-                                <p>
-                                    <i class="bi bi-quote quote-icon-left"></i>
-                                    <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim
-                                        fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem
-                                        dolore labore illum veniam.</span>
-                                    <i class="bi bi-quote quote-icon-right"></i>
-                                </p>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="{{ asset('frontend/assets/img/testimonials/testimonials-5.jpg') }}"
-                                    class="testimonial-img" alt="">
-                                <h3>John Larson</h3>
-                                <h4>Entrepreneur</h4>
-                                <div class="stars">
-                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                        class="bi bi-star-fill"></i>
-                                </div>
-                                <p>
-                                    <i class="bi bi-quote quote-icon-left"></i>
-                                    <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor
-                                        noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse
-                                        veniam culpa fore nisi cillum quid.</span>
-                                    <i class="bi bi-quote quote-icon-right"></i>
-                                </p>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-
-            </div>
-
-        </section><!-- /Testimonials Section -->
 
         <!-- Ekstrakulikuler Section -->
         <section id="ekstrakulikuler" class="portfolio section">
@@ -682,6 +505,42 @@
             </div>
 
         </section><!-- /Ekstrakulikuler Section -->
+        <!-- Team Section -->
+        <section id="team" class="team section light-background">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>PENGURUS</h2>
+                <p>PENGURUS</p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-5">
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="member">
+                            <div class="pic"><img src="{{ asset('frontend/assets/img/team/KH. Moh Romadlon SZ (Pengasuh Pondok).jpg') }}"
+                                    class="img-fluid" alt="">
+                            </div>
+                            <div class="member-info">
+                                <h4>KH. Moh Romadlon SZ </h4>
+                                <span>Pengasuh Pondok</span>
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Team Member -->
+
+                </div>
+
+            </div>
+
+        </section><!-- /Team Section -->
 
         <!-- Team Section -->
         <section id="team" class="team section light-background">
@@ -698,12 +557,12 @@
 
                     <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="member">
-                            <div class="pic"><img src="{{ asset('frontend/assets/img/team/team-1.jpg') }}"
+                            <div class="pic"><img src="{{ asset('frontend/assets/img/team/Kyai Miftachundin, S.Ag (Pengurus Pondok).jpg') }}"
                                     class="img-fluid" alt="">
                             </div>
                             <div class="member-info">
-                                <h4>Walter White</h4>
-                                <span>Chief Executive Officer</span>
+                                <h4>Kyai Miftachundin, S.Ag</h4>
+                                <span>Pengurus Pondok</span>
                                 <div class="social">
                                     <a href=""><i class="bi bi-twitter-x"></i></a>
                                     <a href=""><i class="bi bi-facebook"></i></a>
@@ -716,12 +575,12 @@
 
                     <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                         <div class="member">
-                            <div class="pic"><img src="{{ asset('frontend/assets/img/team/team-2.jpg') }}"
+                            <div class="pic"><img src="{{ asset('frontend/assets/img/team/H. Salman Al Farisi (Pengurus Pondok).jpg') }}"
                                     class="img-fluid" alt="">
                             </div>
                             <div class="member-info">
-                                <h4>Sarah Jhonson</h4>
-                                <span>Product Manager</span>
+                                <h4>H. Salman Al Farisi</h4>
+                                <span>Pengurus Pondok</span>
                                 <div class="social">
                                     <a href=""><i class="bi bi-twitter-x"></i></a>
                                     <a href=""><i class="bi bi-facebook"></i></a>
@@ -734,12 +593,29 @@
 
                     <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                         <div class="member">
-                            <div class="pic"><img src="{{ asset('frontend/assets/img/team/team-3.jpg') }}"
+                            <div class="pic"><img src="{{ asset('frontend/assets/img/team/Kyai Akhmad Syaikhu, S.Ag (Pengurus Pondok).jpg') }}"
                                     class="img-fluid" alt="">
                             </div>
                             <div class="member-info">
-                                <h4>William Anderson</h4>
-                                <span>CTO</span>
+                                <h4>Kyai Akhmad Syaikhu, S.Ag</h4>
+                                <span>Pengurus Pondok</span>
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Team Member -->
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="member">
+                            <div class="pic"><img src="{{ asset('frontend/assets/img/team/H. Akhmad Khamdan (Pengurus Pondok).jpg') }}"
+                                    class="img-fluid" alt="">
+                            </div>
+                            <div class="member-info">
+                                <h4>H. Akhmad Khamdan</h4>
+                                <span>Pengurus Pondok</span>
                                 <div class="social">
                                     <a href=""><i class="bi bi-twitter-x"></i></a>
                                     <a href=""><i class="bi bi-facebook"></i></a>
@@ -790,6 +666,7 @@
                                 </div>
                             </div><!-- End Info Item -->
 
+
                             <div class="col-md-6">
                                 <div class="info-item d-flex flex-column justify-content-center align-items-center"
                                     data-aos="fade-up" data-aos-delay="400">
@@ -798,7 +675,6 @@
                                     <p>info@example.com</p>
                                 </div>
                             </div><!-- End Info Item -->
-
                         </div>
                     </div>
 

@@ -79,6 +79,9 @@ class PembayaranResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->query(
+            Pembayaran::query()->where('user_id', Auth::id())
+        )
             ->columns([
                 TextColumn::make('user.name')
                     ->label('Nama Pengguna')

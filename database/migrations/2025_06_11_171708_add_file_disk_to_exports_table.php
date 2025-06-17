@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pendaftarans', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_lengkap',35);
-            $table->string('email',50)->unique();
-            $table->string('no_hp',14);
-            $table->text('alamat');
-            $table->timestamps();
+        Schema::table('exports', function (Blueprint $table) {
+            $table->string('file_disk')->nullable()->after('user_id');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pendaftarans');
+        Schema::table('exports', function (Blueprint $table) {
+            $table->dropColumn('file_disk');
+        });
     }
 };

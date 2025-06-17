@@ -35,7 +35,11 @@ class UserPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Emerald,
             ])
-            ->discoverResources(in: app_path('Filament/User/Resources'), for: 'App\\Filament\\User\\Resources')
+            ->resources([
+                \App\Filament\User\Resources\DataOrtuResource::class,
+                \App\Filament\User\Resources\DataSantriResource::class,
+                \App\Filament\User\Resources\UploadBerkasResource::class,
+            ])
             ->discoverPages(in: app_path('Filament/User/Pages'), for: 'App\\Filament\\User\\Pages')
             ->pages([
                 \App\Filament\User\Pages\UserDashboard::class,
@@ -57,7 +61,8 @@ class UserPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->databaseNotifications();;
     }
 
 }

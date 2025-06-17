@@ -118,7 +118,7 @@
         </flux:sidebar>
 
         {{ $slot }}
-
+        @livewire('database-notifications')
         @fluxScripts
     </body>
 </html>

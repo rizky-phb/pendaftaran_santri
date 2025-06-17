@@ -23,9 +23,12 @@ class PendaftaranController extends Controller
     {
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
-            'email'        => 'required|email|max:255',
-            'no_hp'        => 'required|string|max:20',
+            'email'        => 'required|email|max:255|unique:pendaftarans,email',
+            'no_hp'        => 'required|string|max:20|unique:pendaftarans,no_hp',
             'alamat'       => 'required|string|max:255',
+        ], [
+            'email.unique' => 'Email sudah terdaftar.',
+            'no_hp.unique' => 'No HP sudah terdaftar.',
         ]);
 
         Pendaftaran::create([

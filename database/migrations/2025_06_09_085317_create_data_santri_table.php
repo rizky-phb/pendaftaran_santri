@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('data_santris', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('nama_lengkap');
-            $table->string('nisn')->nullable();
+            $table->string('nama_lengkap',35);
+            $table->string('nisn',10)->nullable();
             $table->date('tanggal_lahir');
             $table->string('tempat_lahir');
             $table->string('jenis_kelamin');

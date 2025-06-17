@@ -66,6 +66,9 @@ class UploadBerkasResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->query(
+            UploadBerkas::query()->where('user_id', Auth::id())
+        )
             ->columns([
                 TextColumn::make('berkas_fc_sttb')
                     ->label('FC STTB')
@@ -77,10 +80,10 @@ class UploadBerkasResource extends Resource
                                 return '<div style="text-align:center;">
                                     <img src="' . $url . '" alt="FC STTB" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
                                     <br>
-                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                    <a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline; font-size:12px;">Lihat</a>
                                 </div>';
                             }
-                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                            return '<a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline;">Lihat</a>';
                         }
                         return '-';
                     })
@@ -95,10 +98,10 @@ class UploadBerkasResource extends Resource
                                 return '<div style="text-align:center;">
                                     <img src="' . $url . '" alt="SKHUN" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
                                     <br>
-                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                    <a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline; font-size:12px;">Lihat</a>
                                 </div>';
                             }
-                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                            return '<a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline;">Lihat</a>';
                         }
                         return '-';
                     })
@@ -113,10 +116,10 @@ class UploadBerkasResource extends Resource
                                 return '<div style="text-align:center;">
                                     <img src="' . $url . '" alt="Pas Foto" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
                                     <br>
-                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                    <a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline; font-size:12px;">Lihat</a>
                                 </div>';
                             }
-                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                            return '<a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline;">Lihat</a>';
                         }
                         return '-';
                     })
@@ -131,10 +134,10 @@ class UploadBerkasResource extends Resource
                                 return '<div style="text-align:center;">
                                     <img src="' . $url . '" alt="Akte Kelahiran" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
                                     <br>
-                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                    <a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline; font-size:12px;">Lihat</a>
                                 </div>';
                             }
-                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                            return '<a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline;">Lihat</a>';
                         }
                         return '-';
                     })
@@ -149,10 +152,10 @@ class UploadBerkasResource extends Resource
                                 return '<div style="text-align:center;">
                                     <img src="' . $url . '" alt="Blangko Pendaftaran" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
                                     <br>
-                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                    <a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline; font-size:12px;">Lihat</a>
                                 </div>';
                             }
-                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                            return '<a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline;">Lihat</a>';
                         }
                         return '-';
                     })
@@ -167,10 +170,10 @@ class UploadBerkasResource extends Resource
                                 return '<div style="text-align:center;">
                                     <img src="' . $url . '" alt="NISN" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
                                     <br>
-                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                    <a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline; font-size:12px;">Lihat</a>
                                 </div>';
                             }
-                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                            return '<a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline;">Lihat</a>';
                         }
                         return '-';
                     })
@@ -185,20 +188,19 @@ class UploadBerkasResource extends Resource
                                 return '<div style="text-align:center;">
                                     <img src="' . $url . '" alt="Kartu Keluarga" style="max-width:60px;max-height:60px;cursor:pointer;border-radius:4px;border:1px solid #eee;" onclick="showImageModal(\'' . $url . '\')" />
                                     <br>
-                                    <a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline; font-size:12px;">Download</a>
+                                    <a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline; font-size:12px;">Lihat</a>
                                 </div>';
                             }
-                            return '<a href="' . $url . '" download style="color: #3b82f6; text-decoration: underline;">Download</a>';
+                            return '<a href="' . $url . '" target="_blank" style="color: #3b82f6; text-decoration: underline;">Lihat</a>';
                         }
                         return '-';
                     })
                     ->html(),
-                    TextColumn::make('status')
+                TextColumn::make('status')
                     ->label('Status'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

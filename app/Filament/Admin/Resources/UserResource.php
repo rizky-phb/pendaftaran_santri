@@ -54,7 +54,8 @@ class UserResource extends Resource
                         'user' => 'User',
                     ])
                     ->default('user')
-                    ->required(),
+                    ->required()
+                    ->dehydrated(true),
             ]);
     }
 

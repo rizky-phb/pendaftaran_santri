@@ -10,6 +10,7 @@
 
     <!-- Favicons -->
     <link href="{{ asset('frontend/assets/img/logopondok.jpeg') }}" rel="icon-title">
+    <link href="{{ asset('frontend/assets/img/logopondok.jpeg') }}" rel="icon">
     <link href="{{ asset('frontend/assets/img/logopondok.jpeg') }}" rel="logopondok">
 
     <!-- Fonts -->
@@ -106,54 +107,50 @@
                     </div>
                 </div>
 
-                <div class="col-lg-2 col-md-3 footer-links">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
-                    </ul>
-                </div>
 
-                <div class="col-lg-2 col-md-3 footer-links">
-                    <h4>Our Services</h4>
-                    <ul>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
-                    </ul>
-                </div>
 
                 <div class="col-lg-4 col-md-12 footer-newsletter">
                     <h4>Tagline</h4>
                     <p>"Warisan Ulama, Cahaya Umat"</p>
-                    <form action="forms/newsletter.php" method="post" class="php-email-form">
-                        <div class="newsletter-form"><input type="email" name="email"><input type="submit"
-                                value="Subscribe"></div>
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+                    <form action="#" method="get" class="php-email-form" id="newsletter-form">
+                    <div class="newsletter-form">
+                            <input type="email" name="email" required>
+                            <input type="submit" value="Subscribe">
+                        </div>
+                        <div class="loading" style="display:none;">Loading</div>
+                        <div class="error-message" style="display:none;visibility:hidden;"></div>
+                        <div class="sent-message" style="display:none;">Your subscription request has been sent. Thank you!</div>
                     </form>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const form = document.getElementById('newsletter-form');
+                            const loading = form.querySelector('.loading');
+                            const sent = form.querySelector('.sent-message');
+                            const error = form.querySelector('.error-message');
+
+                            form.addEventListener('submit', function (e) {
+                                e.preventDefault();
+                                loading.style.display = 'block';
+                                sent.style.display = 'none';
+                                // error.style.display = 'none'; // Prevent error message from showing
+
+                                setTimeout(function () {
+                                    loading.style.display = 'none';
+                                    sent.style.display = 'block';
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000); // 1 detik sebelum refresh
+                                }, 1000); // loading tampil 1 detik
+                            });
+                        });
+                    </script>
                 </div>
 
             </div>
         </div>
 
         <div class="container copyright text-center mt-4">
-            <p>© <span>Copyright</span> <strong class="px-1 sitename">Sangkuriang</strong> <span>All Rights
-                    Reserved</span>
-            </p>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you've purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-                Designed by <a href="https://bootstrapmade.com/">SangkuriangMade</a>
-            </div>
+
         </div>
 
     </footer>

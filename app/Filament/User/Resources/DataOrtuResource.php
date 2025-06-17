@@ -37,51 +37,95 @@ class DataOrtuResource extends Resource
         return $form
             ->schema([
                 TextInput::make('nama_ayah')
-                    ->required()
-                    ->maxLength(255),
+                ->maxLength(35)
+                ->minLength(3)
+                ->extraAttributes([
+                    'pattern' => '[a-zA-Z\s]{3,35}',
+                    'oninput' => "if(this.value.length > 35) this.value = this.value.slice(0,35);",
+                    'title' => "Nama harus 3-35 karakter (hanya huruf dan spasi)",
+                    'onkeydown' => "return !(/[0-9]/.test(event.key));"
+                ])
+                ->required(),
                 TextInput::make('nama_ibu')
-                    ->required()
-                    ->maxLength(255),
+                ->maxLength(35)
+                ->minLength(3)
+                ->extraAttributes([
+                    'pattern' => '[a-zA-Z\s]{3,35}',
+                    'oninput' => "if(this.value.length > 35) this.value = this.value.slice(0,35);",
+                    'title' => "Nama harus 3-35 karakter (hanya huruf dan spasi)",
+                    'onkeydown' => "return !(/[0-9]/.test(event.key));"
+                ])
+                ->required(),
                 TextInput::make('nik_ayah')
                     ->label('NIK Ayah')
                     ->required()
                     ->numeric() // Validasi angka
-                    ->maxLength(17)
+                    ->maxLength(16)
+                    ->minLength(16)
                     ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
                     ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser);
                 TextInput::make('nik_ibu')
                     ->label('NIK Ibu')
                     ->required()
                     ->numeric() // Validasi angka
-                    ->maxLength(17)
+                    ->maxLength(16)
+                    ->minLength(16)
                     ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
                     ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser);;
                 TextInput::make('pendidikan_terakhir_ayah')
-                    ->required()
-                    ->maxLength(255),
+                ->maxLength(3)
+                ->minLength(2)
+                ->extraAttributes([
+                    'pattern' => '[a-zA-Z\s]{0,3}',
+                    'oninput' => "if(this.value.length > 3) this.value = this.value.slice(0,3);",
+                    'title' => "3 digit pendidikan terakhir (hanya huruf dan spasi)",
+                    'onkeydown' => "return !(/[0-9]/.test(event.key));"
+                ])
+                ->required(),
                 TextInput::make('pendidikan_terakhir_ibu')
-                    ->required()
-                    ->maxLength(255),
+                    ->maxLength(3)
+                    ->minLength(2)
+                    ->extraAttributes([
+                        'pattern' => '[a-zA-Z\s]{3,35}',
+                        'oninput' => "if(this.value.length > 35) this.value = this.value.slice(0,35);",
+                        'title' => "3 digit pendidikan terakhir (hanya huruf dan spasi)",
+                        'onkeydown' => "return !(/[0-9]/.test(event.key));"
+                    ])
+                    ->required(),
                 TextInput::make('pekerjaan_ayah')
                     ->required()
+                    ->minLength(5)
                     ->maxLength(255),
                 TextInput::make('pekerjaan_ibu')
                     ->required()
+                    ->minLength(5)
                     ->maxLength(255),
                 TextInput::make('no_hp_ayah')
                     ->label('No HP Ayah')
                     ->required()
-                    ->numeric() // Validasi angka
-                    ->maxLength(100)
-                    ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
-                    ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser);
+                    ->tel() // Gunakan input type tel
+                    ->placeholder('08xxxxxxxxxx')
+                    ->minLength(10)
+                    ->maxLength(14)
+                    ->extraAttributes([
+                        'pattern' => '^08[0-9]{8,12}$',
+                        'title' => 'Nomor HP harus diawali 08 dan hanya angka (10-14 digit)',
+                        'oninput' => "if(this.value.length > 14) this.value = this.value.slice(0,14);",
+                        'onkeydown' => "return !(/[a-zA-Z\\s]/.test(event.key));"
+                    ]),
                 TextInput::make('no_hp_ibu')
                     ->label('No HP ibu')
                     ->required()
-                    ->numeric() // Validasi angka
-                    ->maxLength(100)
-                    ->inputMode('numeric') // Ubah keyboard jadi angka di mobile
-                    ->extraAttributes(['pattern' => '[0-9]*']), // Batasi input hanya angka (untuk browser);
+                    ->tel() // Gunakan input type tel
+                    ->placeholder('08xxxxxxxxxx')
+                    ->minLength(10)
+                    ->maxLength(14)
+                    ->extraAttributes([
+                        'pattern' => '^08[0-9]{8,12}$',
+                        'title' => 'Nomor HP harus diawali 08 dan hanya angka (10-14 digit)',
+                        'oninput' => "if(this.value.length > 14) this.value = this.value.slice(0,14);",
+                        'onkeydown' => "return !(/[a-zA-Z\\s]/.test(event.key));"
+                    ]),
 
             ]);
     }

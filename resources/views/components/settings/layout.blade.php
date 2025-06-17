@@ -15,6 +15,7 @@
 
         <div class="mt-5 w-full max-w-lg">
             {{ $slot }}
+            @livewire('database-notifications')
         </div>
     </div>
 </div>

@@ -13,4 +13,5 @@
     </script>
 @endif
 
+<link href="{{ asset('frontend/assets/img/logopondok.jpeg') }}" rel="icon">
 @fluxAppearance

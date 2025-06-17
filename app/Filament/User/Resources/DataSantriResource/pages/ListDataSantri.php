@@ -9,7 +9,7 @@ use Filament\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DataSantri;
 
-class ListDataSantris extends ListRecords
+class ListDataSantri extends ListRecords
 {
     protected static string $resource = DataSantriResource::class;
     protected function getHeaderActions(): array
