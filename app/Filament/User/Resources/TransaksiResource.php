@@ -2,11 +2,12 @@
 
 namespace App\Filament\User\Resources;
 
-use App\Filament\User\Resources\PembayaranResource\Pages;
+use App\Filament\User\Resources\TransaksiResource\Pages;
 use App\Models\Pembayaran;
-use Filament\Resources\Resource;
+use App\Models\Transaction;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,17 +19,18 @@ use Filament\Tables\Columns\SelectColumn;
 use App\Mail\AkunDibuatMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Filament\Tables\Actions\Action;
 
 use Illuminate\Support\Facades\Redirect;
-class PembayaranResource extends Resource
+class TransaksiResource extends Resource
 {
     protected static ?string $model = Pembayaran::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
-    protected static ?string $navigationLabel = 'Pembayaran'; // Label di sidebar
+    protected static ?string $navigationLabel = 'Detail Transaksi'; // Label di sidebar
 
-    protected static ?string $pluralModelLabel = 'Pembayaran Registrasi'; // Nama plural
+    protected static ?string $pluralModelLabel = 'List Transaksi'; // Nama plural
 
     protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
     protected static ?int $navigationSort = 3; // ← Tambahkan ini untuk posisi
@@ -56,7 +58,7 @@ class PembayaranResource extends Resource
                         'lainnya' => 'Lainnya',
                     ])
                     ->required()
-                    ->label('Jenis Pembayaran'),
+                    ->label('Jenis Transaksi'),
 
                 TextInput::make('jumlah')
                     ->numeric()
@@ -88,10 +90,12 @@ class PembayaranResource extends Resource
     {
         return $table
         ->query(
-            Pembayaran::query()
-                ->where('user_id', Auth::id())
-                ->where('status', 'menunggu')
+            Pembayaran::where('user_id', Auth::id())
+                ->whereHas('transactions', function ($q) {
+                    $q->where('status', 'settlement');
+                })
         )
+
             ->columns([
                 TextColumn::make('no')
                     ->label('No')
@@ -106,12 +110,17 @@ class PembayaranResource extends Resource
                     }),
 
                 TextColumn::make('jenis_pembayaran')
-                    ->label('Nama Pembayaran')
+                    ->label('Nama Transaksi')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('jumlah')
                     ->label('Jumlah')
+                    ->sortable(),
+
+                TextColumn::make('tanggal_bayar')
+                    ->label('Tanggal Bayar')
+                    ->date('d M Y')
                     ->sortable(),
 
                 TextColumn::make('status')
@@ -129,26 +138,19 @@ class PembayaranResource extends Resource
                     ->sortable(),
             ])
             ->actions([
-                Tables\Actions\Action::make('bayar')
-                    ->label('Bayar')
-                    ->icon('heroicon-o-credit-card')
-                    ->color('primary')
-                    ->url(fn ($record) => route('midtrans.pay', ['pembayaran_id' => $record->id]))
-                    ->openUrlInNewTab()
-                    ->visible(fn ($record) => $record->status === 'menunggu'),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkAction::make('bayar_bulk')
-                    ->label('Bayar Terpilih')
-                    ->icon('heroicon-o-credit-card')
-                    ->color('primary')
-                    ->action(function ($records) {
-                        $ids = $records->pluck('id')->toArray();
-                        $query = http_build_query(['ids' => $ids]);
-                        return redirect()->away(route('midtrans.bulkPay') . '?' . $query);
-                    })
-                    ->requiresConfirmation()
-            ]);
+                Action::make('lihatDetail')
+                    ->label('Lihat Detail')
+                    ->icon('heroicon-o-eye')
+                    ->modalHeading('Detail Transaksi')
+                    ->modalSubheading('Menampilkan semua transaksi terkait pembayaran ini.')
+                    ->modalContent(fn ($record) => view('components.detail-transaksi', [
+                        'transactions' => $record->transactions, // Mengambil semua transaksi relasi dari pembayaran
+                    ]))
+                    ->visible(fn ($record) => $record->transactions()->exists()),
+                    ]);
+
+
+
     }
 
     public static function getRelations(): array
@@ -161,7 +163,7 @@ class PembayaranResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPembayaran::route('/'),
+            'index' => Pages\ListTransaksi::route('/'),
         ];
     }
 }

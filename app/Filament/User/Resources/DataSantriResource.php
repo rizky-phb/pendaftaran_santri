@@ -17,6 +17,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Textarea;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Redirect;
 class DataSantriResource extends Resource
 {
     protected static ?string $model = DataSantri::class;
@@ -29,6 +30,14 @@ class DataSantriResource extends Resource
 
     protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
     protected static ?int $navigationSort = 0; // ← Tambahkan ini untuk posisi
+
+    public function mount(): void
+{
+    if (Auth::user()->role === 'admin') {
+        redirect('/admin')->send();
+        exit;
+    }
+}
 
     public static function form(Form $form): Form
     {

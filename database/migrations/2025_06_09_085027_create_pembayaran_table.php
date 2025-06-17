@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('jenis_pembayaran');
             $table->decimal('jumlah', 12, 2);
             $table->string('bukti_transfer')->nullable();
-            $table->date('tanggal_bayar');
+            $table->date('tanggal_bayar')->nullable();
             $table->string('status')->default('menunggu'); // menunggu / diterima / ditolak
             $table->timestamps();
         });

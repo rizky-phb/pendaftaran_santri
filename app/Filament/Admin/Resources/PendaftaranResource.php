@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\PendaftaranResource\Pages;
 use App\Models\Pendaftaran;
+use App\Models\Pembayaran;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -17,7 +18,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SelectColumn;
 use App\Mail\AkunDibuatMail;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 class PendaftaranResource extends Resource
 {
     protected static ?string $model = Pendaftaran::class;
@@ -29,7 +31,13 @@ class PendaftaranResource extends Resource
     protected static ?string $pluralModelLabel = 'Pendaftar calon santri'; // Nama plural
 
     protected static ?string $navigationGroup = 'Role'; // Group menu
-
+    public function mount(): void
+{
+    if (Auth::user()->role === 'user') {
+        redirect('/user')->send();
+        exit;
+    }
+}
     public static function form(Form $form): Form
     {
         return $form
@@ -110,7 +118,7 @@ class PendaftaranResource extends Resource
                     $existingUser = \App\Models\User::where('email', $record->email)->first();
 
                     if (!$existingUser) {
-                        \App\Models\User::create([
+                        $user = \App\Models\User::create([
                             'name' => $record->nama_lengkap,
                             'email' => $record->email,
                             'password' => bcrypt($password),
@@ -123,6 +131,141 @@ class PendaftaranResource extends Resource
                             $record->email,
                             $password
                         ));
+                          // Buat entri pembayaran default
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Pendaftaran Pondok',
+                            'jumlah'           => 170000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Pendaftaran Mandtrasah Diniah',
+                            'jumlah'           => 170000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Muawanah',
+                            'jumlah'           => 850000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Seragam Olah Raga Pondok',
+                            'jumlah'           => 360000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Jas Almamater',
+                            'jumlah'           => 240000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Kitab Pengajian Pondok dan madrasah',
+                            'jumlah'           => 995000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Atribut Pondok dan Batik Madin',
+                            'jumlah'           => 385000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Kartu Santri',
+                            'jumlah'           => 80000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'DP Awal Ziarah Wali Songo',
+                            'jumlah'           => 500000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Masa Orientasi Santri',
+                            'jumlah'           => 140000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Sariah Pondok Per bulan',
+                            'jumlah'           => 160000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Sariah Madrasah Per bulan',
+                            'jumlah'           => 140000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Makan Per bulan',
+                            'jumlah'           => 450000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Kegiatan Santri Per bulan',
+                            'jumlah'           => 100000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
+                        Pembayaran::create([
+                            'user_id'          => $user->id,
+                            'jenis_pembayaran' => 'Matrai',
+                            'jumlah'           => 10000.00,
+                            'bukti_transfer'   => null,
+                            'tanggal_bayar'    => null,
+                            'status'           => 'menunggu',
+                        ]);
+
                     }
 
                     $record->update([
@@ -187,7 +330,7 @@ class PendaftaranResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPendaftarans::route('/'),
+            'index' => Pages\ListPendaftaran::route('/'),
             'create' => Pages\CreatePendaftaran::route('/create'),
             'edit' => Pages\EditPendaftaran::route('/{record}/edit'),
         ];

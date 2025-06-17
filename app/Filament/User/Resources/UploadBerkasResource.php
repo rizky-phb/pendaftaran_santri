@@ -20,6 +20,7 @@ use App\Mail\AkunDibuatMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Redirect;
 class UploadBerkasResource extends Resource
 {
     protected static ?string $model = UploadBerkas::class;
@@ -33,6 +34,13 @@ class UploadBerkasResource extends Resource
     protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
     protected static ?int $navigationSort = 2; // ← Tambahkan ini untuk posisi
 
+    public function mount(): void
+{
+    if (Auth::user()->role === 'admin') {
+        redirect('/admin')->send();
+        exit;
+    }
+}
 
     public static function form(Form $form): Form
     {

@@ -23,4 +23,14 @@ class Pembayaran extends Model
         'status',
         'bukti_transfer',
     ];
+    public function user()
+{
+    return $this->belongsTo(\App\Models\User::class);
+}
+public function transactions()
+{
+    return $this->belongsToMany(Transaction::class, 'pembayaran_transaction');
+}
+
+
 }

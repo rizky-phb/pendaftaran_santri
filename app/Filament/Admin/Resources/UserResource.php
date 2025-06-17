@@ -15,7 +15,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SelectColumn;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -27,6 +28,13 @@ class UserResource extends Resource
     protected static ?string $pluralModelLabel = 'Users'; // Nama plural
 
     protected static ?string $navigationGroup = 'Role'; // Group menu
+    public function mount(): void
+{
+    if (Auth::user()->role === 'user') {
+        redirect('/user')->send();
+        exit;
+    }
+}
 
     public static function form(Form $form): Form
     {

@@ -35,11 +35,7 @@ class UserPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Emerald,
             ])
-            ->resources([
-                \App\Filament\User\Resources\DataOrtuResource::class,
-                \App\Filament\User\Resources\DataSantriResource::class,
-                \App\Filament\User\Resources\UploadBerkasResource::class,
-            ])
+            ->discoverResources(in: app_path('Filament/User/Resources'), for: 'App\\Filament\\User\\Resources')
             ->discoverPages(in: app_path('Filament/User/Pages'), for: 'App\\Filament\\User\\Pages')
             ->pages([
                 \App\Filament\User\Pages\UserDashboard::class,

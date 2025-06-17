@@ -22,7 +22,8 @@ use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ExportAction;
 use App\Filament\Admin\Exports\VerifikasiBerkasExporter;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 class VerifikasiBerkasResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -43,7 +44,13 @@ class VerifikasiBerkasResource extends Resource
     protected static ?string $pluralModelLabel = 'Pendaftaran'; // Nama plural
 
     protected static ?string $navigationGroup = 'Role'; // Group menu
-
+    public function mount(): void
+{
+    if (Auth::user()->role === 'user') {
+        redirect('/user')->send();
+        exit;
+    }
+}
     public static function form(Form $form): Form
     {
     return $form

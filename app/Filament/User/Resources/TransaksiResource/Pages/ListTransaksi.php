@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Filament\User\Resources\PembayaranResource\Pages;
+namespace App\Filament\User\Resources\TransaksiResource\Pages;
 
-use App\Filament\User\Resources\PembayaranResource;
+use App\Filament\User\Resources\TransaksiResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Redirect;
-class ListPembayaran extends ListRecords
+class ListTransaksi extends ListRecords
 {
-    protected static string $resource = PembayaranResource::class;
+    protected static string $resource = TransaksiResource::class;
     public function mount(): void
     {
         if (Auth::user()->role === 'admin') {

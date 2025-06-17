@@ -18,6 +18,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SelectColumn;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Redirect;
 class DataOrtuResource extends Resource
 {
     protected static ?string $model = DataOrtu::class; // <-- Ganti model sesuai yang valid
@@ -31,6 +32,14 @@ class DataOrtuResource extends Resource
     protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
     protected static ?int $navigationSort = 1; // ← Tambahkan ini untuk posisi
 
+
+    public function mount(): void
+{
+    if (Auth::user()->role === 'admin') {
+        redirect('/admin')->send();
+        exit;
+    }
+}
 
     public static function form(Form $form): Form
     {

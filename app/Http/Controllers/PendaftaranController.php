@@ -38,7 +38,7 @@ class PendaftaranController extends Controller
             'alamat'       => $request->alamat,
         ]);
 
-        return redirect()->route('form-pendaftaran')->with('success', 'Data Dikirim Silakan Tunggu Konfirmasi Melalui Email atau No HP Anda');
+        return redirect()->route('form-pendaftaran')->with('success', 'Data Dikirim Silakan Tunggu Konfirmasi Melalui Email agar dapat memulai proses pendaftaran sesuai tanggal yang telah ditentukan.');
     }
 
     public function show($id)

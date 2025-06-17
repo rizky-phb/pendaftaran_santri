@@ -19,5 +19,9 @@ class CreateUploadBerkas extends CreateRecord
     {
         return false;
     }
-
+  // ✅ Tambahkan method ini agar tidak redirect ke Edit
+  protected function getRedirectUrl(): string
+  {
+      return static::getResource()::getUrl('index');
+  }
 }

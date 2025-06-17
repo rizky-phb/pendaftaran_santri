@@ -8,9 +8,17 @@ use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UploadBerkas;
 
+use Illuminate\Support\Facades\Redirect;
 class ListUploadBerkas extends ListRecords
 {
     protected static string $resource = UploadBerkasResource::class;
+    public function mount(): void
+    {
+        if (Auth::user()->role === 'admin') {
+            redirect('/admin')->send();
+            exit;
+        }
+    }
 
     protected function getHeaderActions(): array
     {

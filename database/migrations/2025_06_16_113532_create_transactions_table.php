@@ -13,12 +13,19 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('pembayaran_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('order_id')->unique();
-            $table->integer('amount');
+            $table->decimal('amount', 12, 2);
             $table->string('status')->default('pending');
             $table->string('payment_type')->nullable();
             $table->string('transaction_time')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->string('transaction_status')->nullable();
+            $table->string('fraud_status')->nullable();
+            $table->string('bank')->nullable();           // dari va_numbers
+            $table->string('va_number')->nullable();      // dari va_numbers
+            $table->string('status_message')->nullable(); // pesan sukses atau error
+            $table->string('pdf_url')->nullable();        // jika ada
             $table->timestamps();
         });
 

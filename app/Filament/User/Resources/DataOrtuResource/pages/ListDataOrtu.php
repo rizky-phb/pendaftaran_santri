@@ -8,9 +8,17 @@ use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DataOrtu;
 
+use Illuminate\Support\Facades\Redirect;
 class ListDataOrtu extends ListRecords
 {
     protected static string $resource = DataOrtuResource::class;
+    public function mount(): void
+{
+    if (Auth::user()->role === 'admin') {
+        redirect('/admin')->send();
+        exit;
+    }
+}
 
     protected function getHeaderActions(): array
     {
