@@ -7,7 +7,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
 
-class ListPembayarans extends ListRecords
+class ListPembayaran extends ListRecords
 {
     protected static string $resource = PembayaranResource::class;
 

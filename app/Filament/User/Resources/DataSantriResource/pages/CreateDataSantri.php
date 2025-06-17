@@ -1,5 +1,5 @@
 <?php
-namespace App\Filament\User\Resources\DataSantriResource\pages;
+namespace App\Filament\User\Resources\DataSantriResource\Pages;
 
 use Illuminate\Support\Facades\Auth;
 
