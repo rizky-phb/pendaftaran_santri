@@ -14,3 +14,5 @@ class CreateVerifikasiBerkas extends CreateRecord
         return false;
     }
 }
+
+
