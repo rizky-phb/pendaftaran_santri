@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Transaction;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -78,6 +80,69 @@ class SantriController extends Controller
             'Content-Disposition' => "attachment; filename=$filename",
         ]);
     }
+    public function exportCsvTransaksi($userId = null)
+{
+    // Ambil transaksi yang status-nya 'settlement' saja
+    $query = Transaction::where('status', 'settlement')
+        ->with(['pembayarans.user']);
+
+    // Jika user_id ditentukan, filter berdasarkan itu
+    if ($userId) {
+        $query->whereHas('pembayarans', function ($q) use ($userId) {
+            $q->where('user_id', $userId);
+        });
+    }
+
+    $transactions = $query->get();
+
+    $filename = "transaksi_berhasil.csv";
+    $handle = fopen('php://temp', 'r+');
+
+    // Header kolom CSV
+    fputcsv($handle, [
+        'User ID',
+        'Nama User',
+        'Jenis Pembayaran',
+        'Jumlah',
+        'Order ID',
+        'Status',
+        'Metode Pembayaran',
+        'Waktu Transaksi',
+        'Bank',
+        'VA Number',
+        'PDF URL',
+    ]);
+
+    foreach ($transactions as $trx) {
+        foreach ($trx->pembayarans as $pembayaran) {
+            $user = $pembayaran->user;
+
+            fputcsv($handle, [
+                $user->id ?? '',
+                $user->name ?? '',
+                $pembayaran->jenis_pembayaran ?? '',
+                $pembayaran->jumlah ?? '',
+                $trx->order_id ?? '',
+                $trx->status ?? '',
+                $trx->payment_type ?? '',
+                $trx->transaction_time ?? '',
+                $trx->bank ?? '',
+                $trx->va_number ?? '',
+                $trx->pdf_url ?? '',
+            ]);
+        }
+    }
+
+    rewind($handle);
+    $csv = stream_get_contents($handle);
+    fclose($handle);
+
+    return response($csv, 200, [
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => "attachment; filename=$filename",
+    ]);
+}
+
 
     public function exportSantriDetail($user_id){
         $santri = User::query()
@@ -162,7 +227,23 @@ class SantriController extends Controller
                 ->setPaper('a4', 'landscape');
             return $pdf->download('santri.pdf');
         }
+        public function exportPdfTransaksi($userId = null)
+{
+    $query = Transaction::where('status', 'settlement')->with(['pembayarans.user']);
 
+    if ($userId) {
+        $query->whereHas('pembayarans', function ($q) use ($userId) {
+            $q->where('user_id', $userId);
+        });
+    }
+
+    $transactions = $query->get();
+
+    $pdf = Pdf::loadView('exports.transaksi-pdf', compact('transactions'))
+        ->setPaper('a4', 'landscape');
+
+    return $pdf->download('transaksi_berhasil.pdf');
+}
     public function exportSantriDetailPdf($user_id)
     {
         $santri = User::query()

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Pengumuman extends Model
+class Gelombang extends Model
 {
 
-    protected $table = 'pengumuman'; // ← Tambahkan ini
+    protected $table = 'gelombang'; // ← Tambahkan ini
     use HasFactory;
     protected $fillable = [
         'tanggal_mulai',

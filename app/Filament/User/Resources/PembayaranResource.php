@@ -86,6 +86,7 @@ class PembayaranResource extends Resource
 
     public static function table(Table $table): Table
     {
+        
         return $table
         ->query(
             Pembayaran::query()
@@ -112,6 +113,9 @@ class PembayaranResource extends Resource
 
                 TextColumn::make('jumlah')
                     ->label('Jumlah')
+                    ->formatStateUsing(function ($state) {
+                        return 'Rp.' . number_format($state, 2, ',', '.');
+                    })
                     ->sortable(),
 
                 TextColumn::make('status')

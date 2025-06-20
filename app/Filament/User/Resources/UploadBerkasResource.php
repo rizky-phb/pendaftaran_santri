@@ -19,7 +19,6 @@ use Filament\Tables\Columns\SelectColumn;
 use App\Mail\AkunDibuatMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Redirect;
 class UploadBerkasResource extends Resource
 {
@@ -35,39 +34,84 @@ class UploadBerkasResource extends Resource
     protected static ?int $navigationSort = 2; // ← Tambahkan ini untuk posisi
 
     public function mount(): void
-{
-    if (Auth::user()->role === 'admin') {
-        redirect('/admin')->send();
-        exit;
+    {
+        if (Auth::user()->role === 'admin') {
+            redirect('/admin')->send();
+            exit;
+        }
     }
-}
+
 
     public static function form(Form $form): Form
     {
-        // Daftar nama berkas yang harus diupload
-        return $form->schema([
+        // Di dalam form(), contoh logika kondisional:
+$request = request();
+
+ return $form->schema([
             FileUpload::make('berkas_fc_sttb')
-            ->label('upload fc sttb')
-            ->disk('public')
-            ->directory('uploads'),
+                ->label('Upload FC STTB')
+                ->disk('public')
+                ->directory('uploads')
+                ->maxSize(10240) // maks 10MB
+                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+
+            ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
+            ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+
             FileUpload::make('berkas_skhun')
-            ->disk('public')
-            ->directory('uploads'),
+                ->disk('public')
+                ->directory('uploads')
+                ->maxSize(10240) // maks 10MB
+                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+                ->deletable()
+        ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
+        ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+
             FileUpload::make('berkas_pas_foto')
-            ->disk('public')
-            ->directory('uploads'),
+                ->disk('public')
+                ->directory('uploads')
+                ->maxSize(10240) // maks 10MB
+                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+                ->deletable()
+                ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
+                ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+
             FileUpload::make('berkas_akte_kelahiran')
-            ->disk('public')
-            ->directory('uploads'),
+                ->disk('public')
+                ->directory('uploads')
+                ->maxSize(10240) // maks 10MB
+                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+                ->deletable()
+                ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
+                ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+
             FileUpload::make('berkas_blangko_pendaftaran')
-            ->disk('public')
-            ->directory('uploads'),
+                ->disk('public')
+                ->directory('uploads')
+                ->maxSize(10240) // maks 10MB
+                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+                ->deletable()
+                ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
+                ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+
             FileUpload::make('berkas_nisn')
-            ->disk('public')
-            ->directory('uploads'),
+                ->disk('public')
+                ->directory('uploads')
+                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+                ->deletable()
+                ->maxSize(10240) // maks 10MB
+                ->preserveFilenames()
+                ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
+                ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+
             FileUpload::make('berkas_kartu_keluarga')
-            ->disk('public')
-            ->directory('uploads'),
+                ->disk('public')
+                ->directory('uploads')
+                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+                ->deletable()
+                ->maxSize(10240) // maks 10MB
+                ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
+                ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
         ]);
     }
 

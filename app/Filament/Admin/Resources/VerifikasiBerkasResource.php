@@ -37,13 +37,14 @@ class VerifikasiBerkasResource extends Resource
     }
     // Hapus method getRecord, karena Filament otomatis mengisi form edit jika relasi sudah di-eager load di getEloquentQuery()
     // Tidak perlu menambahkan method getRecord di sini.
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     protected static ?string $navigationLabel = 'Rekap Data Santri'; // Label di sidebar
 
     protected static ?string $pluralModelLabel = 'Pendaftaran'; // Nama plural
 
-    protected static ?string $navigationGroup = 'Role'; // Group menu
+    protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
+    protected static ?int $navigationSort = 3; // ← Tambahkan ini untuk posisi
     public function mount(): void
 {
     if (Auth::user()->role === 'user') {

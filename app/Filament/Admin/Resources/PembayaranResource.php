@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Filament\User\Resources;
+namespace App\Filament\Admin\Resources;
 
-use App\Filament\User\Resources\TransaksiResource\Pages;
+use App\Filament\Admin\Resources\PembayaranResource\Pages;
 use App\Models\Pembayaran;
-use App\Models\Transaction;
+use Filament\Resources\Resource;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,25 +18,24 @@ use Filament\Tables\Columns\SelectColumn;
 use App\Mail\AkunDibuatMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
-use Filament\Tables\Actions\Action;
 
 use Illuminate\Support\Facades\Redirect;
-class TransaksiResource extends Resource
+class PembayaranResource extends Resource
 {
     protected static ?string $model = Pembayaran::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
-    protected static ?string $navigationLabel = 'Detail Transaksi'; // Label di sidebar
+    protected static ?string $navigationLabel = 'Pembayaran'; // Label di sidebar
 
-    protected static ?string $pluralModelLabel = 'List Transaksi'; // Nama plural
+    protected static ?string $pluralModelLabel = 'List Pembayaran yg Berhasil'; // Nama plural
 
     protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
-    protected static ?int $navigationSort = 3; // ← Tambahkan ini untuk posisi
+    protected static ?int $navigationSort = 4; // ← Tambahkan ini untuk posisi
     public function mount(): void
 {
-    if (Auth::user()->role === 'admin') {
-        redirect('/admin')->send();
+    if (Auth::user()->role === 'user') {
+        redirect('/user')->send();
         exit;
     }
 }
@@ -58,7 +56,7 @@ class TransaksiResource extends Resource
                         'lainnya' => 'Lainnya',
                     ])
                     ->required()
-                    ->label('Jenis Transaksi'),
+                    ->label('Jenis Pembayaran'),
 
                 TextInput::make('jumlah')
                     ->numeric()
@@ -79,6 +77,10 @@ class TransaksiResource extends Resource
                     ->required()
                     ->label('Status'),
 
+                Forms\Components\FileUpload::make('bukti_transfer')
+                    ->label('Bukti Transfer')
+                    ->required()
+                    ->directory('bukti_transfer'),
             ]);
     }
 
@@ -86,10 +88,9 @@ class TransaksiResource extends Resource
     {
         return $table
         ->query(
-            Pembayaran::where('user_id', Auth::id())
-                ->whereHas('transactions', function ($q) {
-                    $q->where('status', 'settlement');
-                })
+            Pembayaran::with('user.santri')->whereHas('transactions', function ($q) {
+                $q->where('status', 'settlement');
+            })
         )
 
             ->columns([
@@ -104,47 +105,57 @@ class TransaksiResource extends Resource
 
                         return ($page - 1) * $perPage + $index + 1;
                     }),
+                TextColumn::make('user.santri.nama_lengkap')
+                    ->label('Nama Santri')
+                    ->searchable()
+                    ->sortable(),
 
                 TextColumn::make('jenis_pembayaran')
-                    ->label('Nama Transaksi')
+                    ->label('Nama Pembayaran')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('jumlah')
                     ->label('Jumlah')
-                    ->formatStateUsing(function ($state) {
-                        return 'Rp.' . number_format($state, 2, ',', '.');
-                    })
-                    ->sortable(),
-
-                TextColumn::make('tanggal_bayar')
-                    ->label('Tanggal Bayar')
-                    ->date('d M Y')
                     ->sortable(),
 
                 TextColumn::make('status')
                     ->label('Status')
                     ->sortable(),
 
-                TextColumn::make('created_at')
-                    ->label('Tanggal Tagihan')
-                    ->dateTime('d M Y')
-                    ->sortable(),
+                    TextColumn::make('payment_type')
+    ->label('Payment Type')
+    ->state(function ($record) {
+        return optional($record->transactions->first())->payment_type;
+    }),
+
+TextColumn::make('transaction_time')
+    ->label('Waktu Transaksi')
+    ->state(function ($record) {
+        return optional($record->transactions->first())->transaction_time;
+    }),
+
+TextColumn::make('bank')
+    ->label('Bank')
+    ->state(function ($record) {
+        return optional($record->transactions->first())->bank;
+    }),
+
+TextColumn::make('va_number')
+    ->label('VA Number')
+    ->state(function ($record) {
+        return optional($record->transactions->first())->va_number;
+    }),
             ])
             ->actions([
-                Action::make('lihatDetail')
-                    ->label('Lihat Detail')
-                    ->icon('heroicon-o-eye')
-                    ->modalHeading('Detail Transaksi')
-                    ->modalSubheading('Menampilkan semua transaksi terkait pembayaran ini.')
-                    ->modalContent(fn ($record) => view('components.detail-transaksi', [
-                        'transactions' => $record->transactions, // Mengambil semua transaksi relasi dari pembayaran
-                    ]))
-                    ->visible(fn ($record) => $record->transactions()->exists()),
-                    ]);
-
-
-
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getRelations(): array
@@ -157,7 +168,7 @@ class TransaksiResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTransaksi::route('/'),
+            'index' => Pages\ListPembayaran::route('/'),
         ];
     }
 }

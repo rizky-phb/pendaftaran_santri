@@ -30,7 +30,8 @@ class PendaftaranResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Pendaftar calon santri'; // Nama plural
 
-    protected static ?string $navigationGroup = 'Role'; // Group menu
+    protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
+    protected static ?int $navigationSort = 1; // ← Tambahkan ini untuk posisi
     public function mount(): void
 {
     if (Auth::user()->role === 'user') {

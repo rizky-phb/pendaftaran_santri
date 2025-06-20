@@ -12,9 +12,7 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/form-pendaftaran', function () {
-    return view('form-pendaftaran');
-})->name('form-pendaftaran');
+Route::get('/form-pendaftaran', [PendaftaranController::class, 'index'])->name('form-pendaftaran');
 
 Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
 
@@ -31,10 +29,16 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('/export-santri', [SantriController::class, 'exportCsv']);
 Route::get('/export-santri/{user_id}', [SantriController::class, 'exportSantriDetail']);
+Route::get('/export-transaksi', [SantriController::class, 'exportCsvTransaksi']);
+Route::get('/export-transaksi/{user_id}', [SantriController::class, 'exportCsvTransaksi']);
 
 // Export PDF routes
 Route::get('/export-santri-pdf', [SantriController::class, 'exportPdf']);
 Route::get('/export-santri/{user_id}/pdf', [SantriController::class, 'exportSantriDetailPdf']);
+Route::get('/export-transaksi-pdf', [SantriController::class, 'exportPdfTransaksi']);
+Route::get('/export-transaksi-pdf/{user_id}', [SantriController::class, 'exportPdfTransaksi']);
+
+//pembayaran midtrans
 Route::get('/bayar/{pembayaran_id}', [MidtransController::class, 'pay'])->name('midtrans.pay');
 Route::get('/user_pembayaran', [MidtransController::class, 'updateStatus']);
 Route::get('/bulk-pay', [MidtransController::class, 'bulkPay'])->name('midtrans.bulkPay');

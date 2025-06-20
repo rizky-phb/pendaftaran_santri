@@ -9,6 +9,12 @@ use Filament\Resources\Pages\EditRecord;
 class EditUploadBerkas extends EditRecord
 {
     protected static string $resource = UploadBerkasResource::class;
-
     
+      // ✅ Tambahkan method ini agar tidak redirect ke Edit
+  protected function getRedirectUrl(): string
+  {
+      return static::getResource()::getUrl('index');
+  }
+
 }
+

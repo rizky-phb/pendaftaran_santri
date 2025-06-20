@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
+use App\Models\Gelombang;
+use Illuminate\Support\Carbon;
 
 class PendaftaranController extends Controller
 {
@@ -19,8 +21,34 @@ class PendaftaranController extends Controller
         ];
     }
 
+
     public function store(Request $request)
     {
+        $today = Carbon::today();
+
+        // Validasi tanggal sekarang terhadap jadwal pendaftaran
+        $today = Carbon::now();
+        $gelombang = Gelombang::whereDate('tanggal_mulai', '<=', $today)
+                        ->whereDate('tanggal_selesai', '>=', $today)
+                        ->orderBy('tanggal_mulai')
+                        ->first();
+
+        if (!$gelombang) {
+            $nextGelombang = Gelombang::whereDate('tanggal_mulai', '>', $today)->orderBy('tanggal_mulai')->first();
+
+            if ($nextGelombang) {
+                return redirect()->route('form-pendaftaran')->withErrors([
+                    'msg' => 'Pendaftaran belum dibuka. Silakan cek kembali pada tanggal ' .
+                        Carbon::parse($nextGelombang->tanggal_mulai)->format('d M Y') .
+                        ' (Gelombang ' . $nextGelombang->gelombang . ').'
+                ]);
+            }
+
+            return redirect()->route('form-pendaftaran')->withErrors([
+                'msg' => 'Maaf, pendaftaran sudah ditutup dan tidak ada gelombang berikutnya.'
+            ]);
+        }
+      // Validasi data form
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'email'        => 'required|email|max:255|unique:pendaftarans,email',
@@ -31,6 +59,7 @@ class PendaftaranController extends Controller
             'no_hp.unique' => 'No HP sudah terdaftar.',
         ]);
 
+        // Simpan data jika valid dan gelombang aktif
         Pendaftaran::create([
             'nama_lengkap' => $request->nama_lengkap,
             'email'        => $request->email,
@@ -38,7 +67,7 @@ class PendaftaranController extends Controller
             'alamat'       => $request->alamat,
         ]);
 
-        return redirect()->route('form-pendaftaran')->with('success', 'Data Dikirim Silakan Tunggu Konfirmasi Melalui Email agar dapat memulai proses pendaftaran sesuai tanggal yang telah ditentukan.');
+        return redirect()->route('form-pendaftaran')->with('success', 'Pendaftaran berhasil! Silakan tunggu konfirmasi melalui email.');
     }
 
     public function show($id)

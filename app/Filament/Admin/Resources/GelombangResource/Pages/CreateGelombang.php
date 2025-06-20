@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Filament\Admin\Resources\PendaftaranResource\Pages;
+namespace App\Filament\Admin\Resources\GelombangResource\Pages;
 
-use App\Filament\Admin\Resources\PendaftaranResource;
+use App\Filament\Admin\Resources\GelombangResource;
 use Filament\Actions;
+use Illuminate\Support\Facades\Auth;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreatePendaftaran extends CreateRecord
+class CreateGelombang extends CreateRecord
 {
-    protected static string $resource = PendaftaranResource::class;
+    protected static string $resource = GelombangResource::class;
 
     public static function canCreateAnother(): bool
     {
