@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(UploadBerkas::class, 'user_id');
     }
+
+    public function pembayaran()
+    {
+        return $this->hasMany(Pembayaran::class);
+    }
 }

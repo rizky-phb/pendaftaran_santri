@@ -11,10 +11,13 @@ class Pengumuman extends Model
     protected $table = 'pengumuman'; // ← Tambahkan ini
     use HasFactory;
     protected $fillable = [
-        'tanggal_mulai',
-        'tanggal_selesai',
+        'user_id',
+        'status',
         'gelombang',
     ];
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 }

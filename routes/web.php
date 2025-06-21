@@ -43,4 +43,9 @@ Route::get('/bayar/{pembayaran_id}', [MidtransController::class, 'pay'])->name('
 Route::get('/user_pembayaran', [MidtransController::class, 'updateStatus']);
 Route::get('/bulk-pay', [MidtransController::class, 'bulkPay'])->name('midtrans.bulkPay');
 
+//VERIFY EMAIL
+// web.php
+Route::get('/verifikasi/{token}', [PendaftaranController::class, 'formPassword']);
+Route::post('/verifikasi/{token}', [PendaftaranController::class, 'setPassword']);
+
 require __DIR__.'/auth.php';
