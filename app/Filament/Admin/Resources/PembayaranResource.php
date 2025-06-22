@@ -77,10 +77,6 @@ class PembayaranResource extends Resource
                     ->required()
                     ->label('Status'),
 
-                Forms\Components\FileUpload::make('bukti_transfer')
-                    ->label('Bukti Transfer')
-                    ->required()
-                    ->directory('bukti_transfer'),
             ]);
     }
 
@@ -88,9 +84,12 @@ class PembayaranResource extends Resource
     {
         return $table
         ->query(
-            Pembayaran::with('user.santri')->whereHas('transactions', function ($q) {
-                $q->where('status', 'settlement');
-            })
+                Pembayaran::with(['user.santri', 'transactions' => function ($q) {
+                    $q->orderByDesc('created_at'); // atau pakai latest() jika kamu mau transaksi terbaru
+                }])->whereHas('transactions', function ($q) {
+                    $q->where('status', 'settlement');
+                })
+
         )
 
             ->columns([
@@ -123,33 +122,23 @@ class PembayaranResource extends Resource
                     ->label('Status')
                     ->sortable(),
 
-                    TextColumn::make('payment_type')
-    ->label('Payment Type')
-    ->state(function ($record) {
-        return optional($record->transactions->first())->payment_type;
-    }),
+                TextColumn::make('transactions.0.status')
+                    ->label('Status'),
 
-TextColumn::make('transaction_time')
-    ->label('Waktu Transaksi')
-    ->state(function ($record) {
-        return optional($record->transactions->first())->transaction_time;
-    }),
+                TextColumn::make('transactions.0.payment_type')
+                    ->label('Payment Type'),
 
-TextColumn::make('bank')
-    ->label('Bank')
-    ->state(function ($record) {
-        return optional($record->transactions->first())->bank;
-    }),
+                TextColumn::make('transactions.0.transaction_time')
+                    ->label('Waktu Transaksi'),
 
-TextColumn::make('va_number')
-    ->label('VA Number')
-    ->state(function ($record) {
-        return optional($record->transactions->first())->va_number;
-    }),
+                TextColumn::make('transactions.0.bank')
+                    ->label('Bank'),
+
+                TextColumn::make('transactions.0.va_number')
+                    ->label('VA Number'),
+
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

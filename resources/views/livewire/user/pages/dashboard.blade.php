@@ -32,7 +32,7 @@
             ['label' => 'Mengisi Data Santri', 'done' => $user->santri !== null],
             ['label' => 'Mengisi Data Orang Tua', 'done' => $user->ortu !== null],
             ['label' => 'Mengunggah Berkas', 'done' => $user->berkas !== null],
-            ['label' => 'Melakukan Pembayaran', 'done' => $user->pembayaran !== null],
+            ['label' => 'Melakukan Pembayaran', 'done' => $user->pembayaran->contains(fn($p) => $p->status !== 'menunggu')],
         ];
         $total = count($steps);
         $completed = collect($steps)->where('done', true)->count();

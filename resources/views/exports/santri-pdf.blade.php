@@ -75,16 +75,16 @@
                 <td>{{ $user->santri->agama ?? '-' }}</td>
                 <td>{{ $user->santri->jenis_kelamin ?? '-' }}</td>
                 <td>{{ $user->santri->alamat ?? '-' }}</td>
-                <td>{{ $user->santri->nama_ayah ?? '-' }}</td>
-                <td>{{ $user->santri->nik_ayah ?? '-' }}</td>
-                <td>{{ $user->santri->pendidikan_terakhir_ayah ?? '-' }}</td>
-                <td>{{ $user->santri->pekerjaan_ayah ?? '-' }}</td>
-                <td>{{ $user->santri->no_hp_ayah ?? '-' }}</td>
-                <td>{{ $user->santri->nama_ibu ?? '-' }}</td>
-                <td>{{ $user->santri->nik_ibu ?? '-' }}</td>
-                <td>{{ $user->santri->pendidikan_terakhir_ibu ?? '-' }}</td>
-                <td>{{ $user->santri->pekerjaan_ibu ?? '-' }}</td>
-                <td>{{ $user->santri->no_hp_ibu ?? '-' }}</td>
+                <td>{{ $user->ortu->nama_ayah ?? '-' }}</td>
+                <td>{{ $user->ortu->nik_ayah ?? '-' }}</td>
+                <td>{{ $user->ortu->pendidikan_terakhir_ayah ?? '-' }}</td>
+                <td>{{ $user->ortu->pekerjaan_ayah ?? '-' }}</td>
+                <td>{{ $user->ortu->no_hp_ayah ?? '-' }}</td>
+                <td>{{ $user->ortu->nama_ibu ?? '-' }}</td>
+                <td>{{ $user->ortu->nik_ibu ?? '-' }}</td>
+                <td>{{ $user->ortu->pendidikan_terakhir_ibu ?? '-' }}</td>
+                <td>{{ $user->ortu->pekerjaan_ibu ?? '-' }}</td>
+                <td>{{ $user->ortu->no_hp_ibu ?? '-' }}</td>
                 <td>{{ $user->berkas->status ?? '-' }}</td>
             </tr>
             @endforeach
