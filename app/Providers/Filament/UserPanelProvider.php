@@ -40,10 +40,6 @@ class UserPanelProvider extends PanelProvider
             ->pages([
                 \App\Filament\User\Pages\UserDashboard::class,
                 ])
-            ->discoverWidgets(in: app_path('Filament/User/Widgets'), for: 'App\\Filament\\User\\Widgets')
-            ->widgets([
-                \App\Filament\User\Widgets\WelcomeUserWidget::class,
-            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

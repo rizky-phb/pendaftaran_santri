@@ -12,7 +12,7 @@ class ListVerifikasiBerkas extends ListRecords
 {
     protected static string $resource = VerifikasiBerkasResource::class;
 
-    protected static ?string $title = 'Data Santri';
+    protected static ?string $title = 'Rekap Data Santri';
     public function mount(): void
 {
     if (Auth::user()->role === 'user') {

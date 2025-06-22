@@ -41,7 +41,7 @@ class VerifikasiBerkasResource extends Resource
 
     protected static ?string $navigationLabel = 'Rekap Data Santri'; // Label di sidebar
 
-    protected static ?string $pluralModelLabel = 'Pendaftaran'; // Nama plural
+    protected static ?string $pluralModelLabel = 'Rekap Data Santri'; // Nama plural
 
     protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
     protected static ?int $navigationSort = 3; // ← Tambahkan ini untuk posisi

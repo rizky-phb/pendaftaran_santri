@@ -86,7 +86,7 @@ class PembayaranResource extends Resource
 
     public static function table(Table $table): Table
     {
-        
+
         return $table
         ->query(
             Pembayaran::query()
@@ -122,13 +122,9 @@ class PembayaranResource extends Resource
                     ->label('Status')
                     ->sortable(),
 
-                TextColumn::make('bukti_transfer')
-                    ->label('Bukti Transfer')
-                    ->limit(20)
-                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Tanggal Tagihan')
+                    ->label('Tagihan')
                     ->dateTime('d M Y')
                     ->sortable(),
             ])

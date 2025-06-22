@@ -38,10 +38,6 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 \App\Filament\Admin\Pages\AdminDashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\\Filament\\Admin\\Widgets')
-            ->widgets([
-                \App\Filament\Admin\Widgets\WelcomeAdminWidget::class,
-            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
