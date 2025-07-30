@@ -24,7 +24,7 @@ class GelombangResource extends Resource
 {
     protected static ?string $model = Gelombang::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
     protected static ?string $navigationLabel = 'Tanggal Pendaftaran'; // Label di sidebar
 

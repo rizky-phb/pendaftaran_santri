@@ -10,7 +10,7 @@
                 data-aos="fade-in">
 
             <div class="container d-flex flex-column align-items-center">
-                <h2 data-aos="fade-up" data-aos-delay="100">"SALAFIYAH"</h2>
+                <h2 data-aos="fade-up" data-aos-delay="100">"SALAFIYAH KAUMAN PEMALANG"</h2>
                 <p data-aos="fade-up" data-aos-delay="200">"PONDOK PESANTREN /MADRASAH DINIYAH WUSTHO/ ULYA PUTRA-PUTRI"</p>
                 <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
                     <a href="/form-pendaftaran" class="btn-get-started">Ayo Bergabung</a>
@@ -22,119 +22,122 @@
 
         </section><!-- /Hero Section -->
 
-        <!-- alur Section -->
+        <!-- Alur Pendaftaran Section -->
         <section id="alur" class="alur section">
-
             <div class="container">
-
                 <div class="row gy-4">
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                        <h3 style="font-style: bold">ALUR PENDAFTARAN</h3>
-                        <p>Berikut adalah contoh alur pendaftaran santri di Pondok Pesantren Salafiyah Kauman Pemalang:<br>
-                            <br>
-                            Tahap 1: Pendaftaran<br>
-
-                            1. Pondok Pesantren Mengumumkan Tanggal Pendaftaran santri melalui,sosial media, brosur yang
-                            sudah ditetapkan.<br>
-                            2. Calon santri bisa mengisi formulir pendaftaran saat glombang pendaftaran sudah dibuka.<br>
-                            3. Pengurus pendaftaran melakukan verifikasi akun administrasi calon santri untuk dapat
-                            melakukan login registrasi Alur-pendaftaran,Dan memastikan bahwa dokumen-dokumen
-                            yang dikumpulkan lengkap dan memenuhi persyaratan.<br>
-
-                            <br>
-                            Tahap 2: Seleksi Administrasi<br>
-                            1. Admin Memvalidasikan dokumen-dokumen yang diperlukan, seperti:<br>
-                            - Fotokopi ijazah terakhir<br>
-                            - Fotokopi kartu keluarga<br>
-                            - Fotokopi SKHUN<br>
-                            - Fotokopi akte kelahiran<br>
-                            
-                            2. Tes membaca Al-Qur'an dan tes pengetahuan agama (Ditempat).<br>
-                            <br>
-                            Tahap 3: Wawancara<br>
-
-                            1. Calon santri yang lolos seleksi administrasi diundang wawancara dengan pengasuh pondok
-                            pesantren atau Pengurus,untuk mengisi surat pernyataan peraturan yang harus dipatuhi diPondok
-                            Pesantren Salafiyah Kauman Pemalang dan ditanda tangani oleh orang tua wali.<br>
-                            <br>
-                            Tahap 4: Pengumuman Hasil Seleksi Administrasi<br>
-
-                            1. Pengurus pendaftaran mengumumkan hasil seleksi Administrasinya Yang Sudah Diapprove kepada
-                            calon santri Jika Persyaratan Sudah Memenuhi prusedur Pondok Salafiyah Kauman Pemalang .<br>
-                            2. Dan Calon santri yang diterima diminta untuk melakukan daftar ulang langsung ditempat.<br>
-                            <br>
-                            Tahap 5: Masa Orientasi<br>
-
-                            1. Santri baru mengikuti orientasi untuk memahami aturan dan kegiatan di pondok pesantren.<br>
-
-                            ALUR PENDAFTARAN INI SUDAH DITETAPKAN PONDOK PESANTREN SALAFIYAH KAUMAN PEMALANG.<br>
-
-                        </p>
+                        <h3 class="fw-bold">ALUR PENDAFTARAN</h3>
+                        <ol>
+                            <li><strong>Tahap 1: Pendaftaran</strong>
+                                <ul>
+                                    <li>Pondok Pesantren mengumumkan tanggal pendaftaran santri melalui media sosial dan
+                                        brosur resmi.</li>
+                                    <li>Calon santri mengisi formulir pendaftaran saat gelombang pendaftaran dibuka.</li>
+                                    <li>Pengurus memverifikasi akun dan dokumen administrasi calon santri untuk memastikan
+                                        kelengkapan dan kesesuaian persyaratan.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tahap 2: Seleksi Administrasi</strong>
+                                <ul>
+                                    <li>Validasi dokumen yang diperlukan:
+                                        <ul>
+                                            <li>Fotokopi ijazah terakhir</li>
+                                            <li>Fotokopi Kartu Keluarga</li>
+                                            <li>Fotokopi SKHUN</li>
+                                            <li>Fotokopi akta kelahiran</li>
+                                        </ul>
+                                    </li>
+                                    <li>Tes membaca Al-Qur'an dan pengetahuan agama (dilakukan di tempat).</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tahap 3: Wawancara</strong>
+                                <ul>
+                                    <li>Calon santri yang lolos seleksi akan mengikuti wawancara bersama pengasuh pondok
+                                        atau pengurus.</li>
+                                    <li>Penandatanganan surat pernyataan peraturan pondok oleh orang tua/wali.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tahap 4: Pengumuman Hasil</strong>
+                                <ul>
+                                    <li>Hasil seleksi diumumkan kepada calon santri yang lulus dan memenuhi syarat.</li>
+                                    <li>Calon santri yang diterima diminta melakukan daftar ulang secara langsung.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tahap 5: Masa Orientasi</strong>
+                                <ul>
+                                    <li>Santri baru mengikuti orientasi untuk memahami aturan dan kegiatan pondok.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <p class="mt-3 fw-semibold">*Alur ini telah ditetapkan oleh Pondok Pesantren Salafiyah Kauman
+                            Pemalang.</p>
                     </div>
                     <div class="col-lg-6" id="tanggal" data-aos="fade-up" data-aos-delay="100">
-                        <h3>TANGGAL PENDAFTARAN</h3>
-                        <p>mulai bulan juni s.d juli 2025. tanggal ditentukan admin</p>
+                        <h3 class="fw-bold">TANGGAL PENDAFTARAN</h3>
+                        <p>Pendaftaran resmi dibuka mulai,Tanggal, Bulan <strong> Ditentukan oleh admin.</strong>. </p>
                     </div>
                 </div>
-
             </div>
+        </section>
 
-        </section><!-- /About Section -->
-
-        <!-- syarat Section -->
+        <!-- Persyaratan Section -->
         <section id="syarat" class="syarat section">
-
             <div class="container">
-
                 <div class="row gy-4">
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                        <h3>PERSYARATAN PENDAFTARAN</h3>
-                        <p>dokumen-dokumen yang diperlukan, seperti: <br>
-                            - Fotokopi ijazah<br>
-                            - Fotokopi kartu keluarga<br>
-                            - Fotokopi SKHUN<br>
-                            - Fotokopi akte kelahiran<br>
-                            - PasFoto 3x4(4 lembar)<br>
-                            - Fotokopi Kartu NISN<br>
-                        </p>
+                        <h3 class="fw-bold">PERSYARATAN PENDAFTARAN</h3>
+                        <ul>
+                            <li>Fotokopi ijazah terakhir</li>
+                            <li>Fotokopi Kartu Keluarga</li>
+                            <li>Fotokopi SKHUN</li>
+                            <li>Fotokopi akta kelahiran</li>
+                            <li>Pas foto ukuran 3x4 (4 lembar)</li>
+                            <li>Fotokopi Kartu NISN</li>
+                        </ul>
                     </div>
                 </div>
-
             </div>
+        </section>
 
-        </section><!-- /About Section -->
-
-        <!-- penyerahan Section -->
+        <!-- Penyerahan Calon Santri Section -->
         <section id="penyerahan" class="penyerahan section">
-
             <div class="container">
-
                 <div class="row gy-4">
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                        <h3>ALUR PENYERAHAN CALON SANTRI</h3>
-                        <p> 1. Penyerahan Dokumen Kepada Pihak Pondok Pesantren:<br>
-                            - Fotokopi ijazah terakhir<br>
-                            - Fotokopi kartu keluarga<br>
-                            - Fotokopi SKHUN<br>
-                            - Fotokopi akte kelahiran<br>
-                            - PasFoto 3x4(4 lembar)<br>
-                            - Fotokopi Kartu NISN<br>
-                            2. Pengenalan Lingkungan :<br>
-                            2.1 Pihak Pondok Mengenalkan Lingkungan Pondok Pesantren Kepada Santri dan Ortu/Wali<br>
-                            3. Penjelasan Aturan :<br>
-                            3.1 Pihak Pondok Pesantren Menjelaskan Aturan dan Kegiatan di Pondok Kepada SAntri dan
-                            Ortu/Wali<br>
-                            4. Konfirmasi Kontak :<br>
-                            4.1 Ortu/Wali Memberikan Informasi Kontak yang dapat Dihubungi oleh Pihak Pondok<br>
-
-                        </p>
+                        <h3 class="fw-bold">ALUR PENYERAHAN CALON SANTRI</h3>
+                        <ol>
+                            <li><strong>Penyerahan Dokumen:</strong>
+                                <ul>
+                                    <li>Fotokopi ijazah terakhir</li>
+                                    <li>Fotokopi Kartu Keluarga</li>
+                                    <li>Fotokopi SKHUN</li>
+                                    <li>Fotokopi akta kelahiran</li>
+                                    <li>Pas foto ukuran 3x4 (4 lembar)</li>
+                                    <li>Fotokopi Kartu NISN</li>
+                                </ul>
+                            </li>
+                            <li><strong>Pengenalan Lingkungan:</strong>
+                                <ul>
+                                    <li>Pihak pondok mengenalkan lingkungan kepada santri dan orang tua/wali.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Penjelasan Aturan:</strong>
+                                <ul>
+                                    <li>Pihak pondok menjelaskan aturan dan kegiatan yang berlaku.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Konfirmasi Kontak:</strong>
+                                <ul>
+                                    <li>Orang tua/wali memberikan informasi kontak yang dapat dihubungi oleh pihak pondok.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ol>
                     </div>
                 </div>
-
             </div>
-
-        </section><!-- /About Section -->
-        <!-- About Section -->
+        </section>
         <section id="about" class="about section">
 
             <div class="container">
@@ -376,7 +379,7 @@
                                 </ul>
                             </div>
                             <div class="col-lg-6 order-1 order-lg-2 text-center">
-                                <img src="{{ asset('frontend/assets/img/visi.jpg') }}" alt=""
+                                <img src="{{ asset('frontend/assets/img/salfiah.jpeg') }}" alt=""
                                     class="img-fluid w-100" style="max-height: 600px; object-fit:cover;">
                             </div>
                         </div>
@@ -405,7 +408,7 @@
                                 </ul>
                             </div>
                             <div class="col-lg-6 order-1 order-lg-2 text-center">
-                                <img src="{{ asset('frontend/assets/img/misi.jpg') }}" alt=""
+                                <img src="{{ asset('frontend/assets/img/mis.jpg') }}" alt=""
                                     class="img-fluid w-100" style="max-height: 600px; object-fit:cover;">
                             </div>
                         </div>
@@ -618,7 +621,7 @@
 
         </section><!-- /Ekstrakulikuler Section -->
         <!-- Team Section -->
-        <section id="team" class="team section light-background">
+        {{-- <section id="team" class="team section light-background">
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -653,7 +656,7 @@
 
             </div>
 
-        </section><!-- /Team Section -->
+        </section><!-- /Team Section --> --}}
 
         <!-- Team Section -->
         <section id="team" class="team section light-background">
@@ -664,7 +667,7 @@
                 <p>PENGASUH</p>
             </div><!-- End Section Title -->
 
-            <div class="container">
+            {{-- <div class="container">
 
                 <div class="row gy-5">
 
@@ -685,7 +688,51 @@
                                 </div>
                             </div>
                         </div>
+                    </div><!-- End Team Member --> --}}
+
+            <div class="container">
+
+                <div class="row gy-5">
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="member">
+                            <div class="pic"><img
+                                    src="{{ asset('frontend/assets/img/team/KH. Moh Romadlon SZ (Pengasuh Pondok).jpg') }}"
+                                    class="img-fluid" alt="">
+                            </div>
+                            <div class="member-info">
+                                <h4>KH. Moh Romadlon SZ </h4>
+                                <span>Pengasuh Pondok</span>
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
                     </div><!-- End Team Member -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="member">
+                            <div class="pic"><img
+                                    src="{{ asset('frontend/assets/img/team/Kyai Miftachundin, S.Ag (Pengurus Pondok).jpg') }}"
+                                    class="img-fluid" alt="">
+                            </div>
+                            <div class="member-info">
+                                <h4>Kyai Miftachundin, S.Ag</h4>
+                                <span>Pengurus Pondok</span>
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Team Member -->
+
+
 
                     <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                         <div class="member">

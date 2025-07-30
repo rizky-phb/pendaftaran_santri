@@ -78,7 +78,7 @@ class DataSantriResource extends Resource
                 ])
                 ->required(),
             Textarea::make('alamat')
-            ->maxLength(30)
+            ->maxLength(100)
             ->rows(4)
             ->required(),
         ]);

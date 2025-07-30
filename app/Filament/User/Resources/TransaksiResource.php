@@ -26,7 +26,7 @@ class TransaksiResource extends Resource
 {
     protected static ?string $model = Pembayaran::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-book-open';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list'; // Ikon di sidebar
 
     protected static ?string $navigationLabel = 'Detail Transaksi'; // Label di sidebar
 

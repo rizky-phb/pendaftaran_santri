@@ -79,7 +79,7 @@ class PendaftaranController extends Controller
         Mail::to($pendaftar->email)->send(new EmailVerifikasiPendaftaran($pendaftar));
 
 
-        return redirect()->route('form-pendaftaran')->with('success', 'Pendaftaran berhasil! Silakan tunggu konfirmasi melalui email.');
+        return redirect()->route('form-pendaftaran')->with('success', 'Pendaftaran berhasil! Silakan tunggu konfirmasi melalui email anda.');
     }
 
     public function show($id)

@@ -8,17 +8,18 @@
             font-family: DejaVu Sans, Arial, Helvetica, sans-serif;
             font-size: 12px;
             margin: 20px;
+            margin-top: 0px;
         }
         .report-title {
             text-align: center;
             font-size: 20px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .santri-form {
             border: 1px solid #444;
             padding: 16px 24px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             background: #fff;
             border-radius: 6px;
         }
@@ -41,7 +42,7 @@
     </style>
 </head>
 <body>
-    <div class="report-title">Laporan Rekap Data Santri</div>
+    <div class="report-title ">Laporan Rekap Data Santri</div>
     <div class="santri-form">
         <div class="form-row">
             <div class="form-label">Nama</div>
@@ -81,43 +82,43 @@
         </div>
         <div class="form-row">
             <div class="form-label">Nama Ayah</div>
-            <div class="form-value">{{ $santri->santri->nama_ayah ?? '-' }}</div>
+            <div class="form-value">{{ $santri->ortu->nama_ayah ?? '-' }}</div>
         </div>
         <div class="form-row">
             <div class="form-label">NIK Ayah</div>
-            <div class="form-value">{{ $santri->santri->nik_ayah ?? '-' }}</div>
+            <div class="form-value">{{ $santri->ortu->nik_ayah ?? '-' }}</div>
         </div>
         <div class="form-row">
             <div class="form-label">Pendidikan Terakhir Ayah</div>
-            <div class="form-value">{{ $santri->santri->pendidikan_terakhir_ayah ?? '-' }}</div>
+            <div class="form-value">{{ $santri->ortu->pendidikan_terakhir_ayah ?? '-' }}</div>
         </div>
         <div class="form-row">
             <div class="form-label">Pekerjaan Ayah</div>
-            <div class="form-value">{{ $santri->santri->pekerjaan_ayah ?? '-' }}</div>
+            <div class="form-value">{{ $santri->ortu->pekerjaan_ayah ?? '-' }}</div>
         </div>
         <div class="form-row">
             <div class="form-label">No HP Ayah</div>
-            <div class="form-value">{{ $santri->santri->no_hp_ayah ?? '-' }}</div>
+            <div class="form-value">{{ $santri->ortu->no_hp_ayah ?? '-' }}</div>
         </div>
         <div class="form-row">
             <div class="form-label">Nama Ibu</div>
-            <div class="form-value">{{ $santri->santri->nama_ibu ?? '-' }}</div>
+            <div class="form-value">{{ $santri->ortu->nama_ibu ?? '-' }}</div>
         </div>
         <div class="form-row">
             <div class="form-label">NIK Ibu</div>
-            <div class="form-value">{{ $santri->santri->nik_ibu ?? '-' }}</div>
+            <div class="form-value">{{ $santri->ortu->nik_ibu ?? '-' }}</div>
         </div>
         <div class="form-row">
             <div class="form-label">Pendidikan Terakhir Ibu</div>
-            <div class="form-value">{{ $santri->santri->pendidikan_terakhir_ibu ?? '-' }}</div>
+            <div class="form-value">{{ $santri->ortu->pendidikan_terakhir_ibu ?? '-' }}</div>
         </div>
         <div class="form-row">
             <div class="form-label">Pekerjaan Ibu</div>
-            <div class="form-value">{{ $santri->santri->pekerjaan_ibu ?? '-' }}</div>
+            <div class="form-value">{{ $santri->ortu->pekerjaan_ibu ?? '-' }}</div>
         </div>
         <div class="form-row">
             <div class="form-label">No HP Ibu</div>
-            <div class="form-value">{{ $santri->santri->no_hp_ibu ?? '-' }}</div>
+            <div class="form-value">{{ $santri->ortu->no_hp_ibu ?? '-' }}</div>
         </div>
         <div class="form-row">
             <div class="form-label">Status Verifikasi</div>
