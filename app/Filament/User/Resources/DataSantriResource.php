@@ -16,6 +16,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Textarea;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Redirect;
 class DataSantriResource extends Resource
@@ -67,8 +68,16 @@ class DataSantriResource extends Resource
                 'onkeydown' => "return (!this.value || this.value.length < 10) || event.key === 'Backspace' || event.key === 'Delete';"
             ]), // Batasi input hanya angka (untuk browser)
             DatePicker::make('tanggal_lahir')
-                ->required()
-                ->maxDate(now()->subYears(10)), // Tidak bisa input kurang dari 10 tahun dari sekarang
+    ->label('Tanggal Lahir')
+    ->required()
+    ->afterOrEqual(Carbon::now()->subYears(21)) // Usia pendaftar minimal 13 tahun
+    ->beforeOrEqual(Carbon::now()->subYears(13)) // Usia p
+    ->validationMessages([
+        'required' => 'tanggal lahir wajib diisi.',
+        'title' => "Usia pendaftar tidak boleh lebih dari 21 tahun.",
+        'before_or_equal' => 'Usia pendaftar tidak boleh lebih dari 21 tahun.',
+        'after_or_equal' => 'Usia pendaftar minimal 13 tahun.',
+    ]), // Tidak bisa input kurang dari 10 tahun dari sekarang
             TextInput::make('tempat_lahir')->required(),
             TextInput::make('agama')->required(),
             Select::make('jenis_kelamin')

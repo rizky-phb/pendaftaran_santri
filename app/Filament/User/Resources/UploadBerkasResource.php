@@ -42,79 +42,84 @@ class UploadBerkasResource extends Resource
     }
 
 
-    public static function form(Form $form): Form
+public static function form(Form $form): Form
     {
         // Di dalam form(), contoh logika kondisional:
 $request = request();
 
- return $form->schema([
-            FileUpload::make('berkas_fc_sttb')
-                ->label('Upload FC STTB')
-                ->disk('public')
-                ->directory('uploads')
-                ->maxSize(10240) // maks 10MB
-                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+return $form->schema([
+    FileUpload::make('berkas_fc_sttb')
+        ->label('Upload FC STTB')
+        ->disk('public')
+        ->directory('uploads')
+        ->maxSize(10240)
+        ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+        ->required() // ✅ Wajib diisi
+        ->validationMessages([
+            'required' => 'Berkas FC STTB wajib diunggah!',
+        ]),
 
-            ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
-            ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+    FileUpload::make('berkas_skhun')
+        ->disk('public')
+        ->directory('uploads')
+        ->maxSize(10240)
+        ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+        ->required() // ✅ Wajib diisi
+        ->validationMessages([
+            'required' => 'Berkas SKHUN wajib diunggah!',
+        ]),
 
-            FileUpload::make('berkas_skhun')
-                ->disk('public')
-                ->directory('uploads')
-                ->maxSize(10240) // maks 10MB
-                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
-                ->deletable()
-        ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
-        ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+    FileUpload::make('berkas_pas_foto')
+        ->disk('public')
+        ->directory('uploads')
+        ->maxSize(10240)
+        ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+        ->required() // ✅ Wajib diisi
+        ->validationMessages([
+            'required' => 'Berkas Pas Foto wajib diunggah!',
+        ]),
 
-            FileUpload::make('berkas_pas_foto')
-                ->disk('public')
-                ->directory('uploads')
-                ->maxSize(10240) // maks 10MB
-                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
-                ->deletable()
-                ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
-                ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+    FileUpload::make('berkas_akte_kelahiran')
+        ->disk('public')
+        ->directory('uploads')
+        ->maxSize(10240)
+        ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+        ->required() // ✅ Wajib diisi
+        ->validationMessages([
+            'required' => 'Berkas Akte Kelahiran wajib diunggah!',
+        ]),
 
-            FileUpload::make('berkas_akte_kelahiran')
-                ->disk('public')
-                ->directory('uploads')
-                ->maxSize(10240) // maks 10MB
-                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
-                ->deletable()
-                ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
-                ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+    FileUpload::make('berkas_blangko_pendaftaran')
+        ->disk('public')
+        ->directory('uploads')
+        ->maxSize(10240)
+        ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+        ->required() // ✅ Wajib diisi
+        ->validationMessages([
+            'required' => 'Berkas Blangko Pendaftaran wajib diunggah!',
+        ]),
 
-            FileUpload::make('berkas_blangko_pendaftaran')
-                ->disk('public')
-                ->directory('uploads')
-                ->maxSize(10240) // maks 10MB
-                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
-                ->deletable()
-                ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
-                ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
+    FileUpload::make('berkas_nisn')
+        ->disk('public')
+        ->directory('uploads')
+        ->maxSize(10240)
+        ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+        ->required() // ✅ Wajib diisi
+        ->validationMessages([
+            'required' => 'Berkas NISN wajib diunggah!',
+        ]),
 
-            FileUpload::make('berkas_nisn')
-                ->disk('public')
-                ->directory('uploads')
-                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
-                ->deletable()
-                ->maxSize(10240) // maks 10MB
-                ->preserveFilenames()
-                ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
-                ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
-
-            FileUpload::make('berkas_kartu_keluarga')
-                ->disk('public')
-                ->directory('uploads')
-                ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
-                ->deletable()
-                ->maxSize(10240) // maks 10MB
-                ->afterStateHydrated(fn ($component, $state) => $component->state(null)) // 🔥 kosongkan saat edit
-                ->helperText('Silakan unggah ulang, berkas lama tidak ditampilkan.'),
-        ]);
-    }
-
+    FileUpload::make('berkas_kartu_keluarga')
+        ->disk('public')
+        ->directory('uploads')
+        ->maxSize(10240)
+        ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+        ->required() // ✅ Wajib diisi
+        ->validationMessages([
+            'required' => 'Berkas Kartu Keluarga wajib diunggah!',
+        ]),
+]);
+}
     public static function table(Table $table): Table
     {
         return $table

@@ -16,6 +16,10 @@ class ListGelombang extends ListRecords
             redirect('/user')->send();
             exit;
         }
+        if (Auth::user()->role === 'user') {
+            redirect('/user')->send();
+            exit;
+        }
     }
 
     protected function getHeaderActions(): array

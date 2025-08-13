@@ -1,5 +1,7 @@
 @if (auth()->user()->role !== 'admin')
-    <script>window.location = "{{ url('/user') }}";</script>
+    <script>
+        window.location = "{{ url('/user') }}";
+    </script>
 @endif
 
 <x-filament::page>
@@ -14,31 +16,93 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
             @php
                 $cards = [
-                    ['label' => 'Total Pendaftar', 'value' => $totalPendaftar, 'icon' => '👥', 'bg' => 'bg-blue-100', 'text' => 'text-blue-800'],
-                    ['label' => 'Verifikasi Email', 'value' => $verifikasiEmail, 'icon' => '✅', 'bg' => 'bg-green-100', 'text' => 'text-green-800'],
-                    ['label' => 'Lengkap Data Santri', 'value' => $lengkapSantri, 'icon' => '📄', 'bg' => 'bg-yellow-100', 'text' => 'text-yellow-800'],
-                    ['label' => 'Lengkap Data Ortu', 'value' => $lengkapOrtu, 'icon' => '👨‍👩‍👧', 'bg' => 'bg-purple-100', 'text' => 'text-purple-800'],
-                    ['label' => 'Upload Berkas Lengkap', 'value' => $lengkapBerkas, 'icon' => '📎', 'bg' => 'bg-pink-100', 'text' => 'text-pink-800'],
-                    ['label' => 'Sudah Bayar Lengkap', 'value' => $lunasPembayaran, 'icon' => '💰', 'bg' => 'bg-emerald-100', 'text' => 'text-emerald-800'],
-                    ['label' => 'Bayar Sebagian', 'value' => $parsialPembayaran, 'icon' => '💳', 'bg' => 'bg-orange-100', 'text' => 'text-orange-800'],
-                    ['label' => 'Sudah Diumumkan', 'value' => $masukPengumuman, 'icon' => '📢', 'bg' => 'bg-indigo-100', 'text' => 'text-indigo-800'],
+                    [
+                        'label' => 'Total Pendaftar',
+                        'value' => $totalPendaftar,
+                        'icon' => '👥',
+                        'bg' => 'bg-blue-100',
+                        'text' => 'text-blue-800',
+                        'link' => '/admin/users?tableFilters[role][value]=user',
+                    ],
+                    [
+                        'label' => 'Verifikasi Email',
+                        'value' => $verifikasiEmail,
+                        'icon' => '✅',
+                        'bg' => 'bg-green-100',
+                        'text' => 'text-green-800',
+                        'link' => '/admin/users?tableFilters[role][value]=user',
+                    ],
+                    [
+                        'label' => 'Lengkap Data Santri',
+                        'value' => $lengkapSantri,
+                        'icon' => '📄',
+                        'bg' => 'bg-yellow-100',
+                        'text' => 'text-yellow-800',
+                        'link' => '/admin/verifikasi-berkas',
+                    ],
+                    [
+                        'label' => 'Lengkap Data Ortu',
+                        'value' => $lengkapOrtu,
+                        'icon' => '👨‍👩‍👧',
+                        'bg' => 'bg-purple-100',
+                        'text' => 'text-purple-800',
+                        'link' => '/admin/verifikasi-berkas',
+                    ],
+                    [
+                        'label' => 'Upload Berkas Lengkap',
+                        'value' => $lengkapBerkas,
+                        'icon' => '📎',
+                        'bg' => 'bg-pink-100',
+                        'text' => 'text-pink-800',
+                        'link' => '/admin/verifikasi-berkas',
+                    ],
+                    [
+                        'label' => 'Sudah Bayar Lengkap',
+                        'value' => $lunasPembayaran,
+                        'icon' => '💰',
+                        'bg' => 'bg-emerald-100',
+                        'text' => 'text-emerald-800',
+                        'link' => '/admin/pembayarans',
+                    ],
+                    [
+                        'label' => 'Bayar Sebagian',
+                        'value' => $parsialPembayaran,
+                        'icon' => '💳',
+                        'bg' => 'bg-orange-100',
+                        'text' => 'text-orange-800',
+                        'link' => '/admin/pembayarans',
+                    ],
+                    [
+                        'label' => 'Sudah Diterima',
+                        'value' => $masukPengumuman,
+                        'icon' => '🎓',
+                        'bg' => 'bg-indigo-100',
+                        'text' => 'text-indigo-800',
+                        'link' => '/admin/pengumumen',
+                    ],
                 ];
             @endphp
 
             @foreach ($cards as $card)
-                <div class="p-5 rounded-xl shadow-md transition-all duration-200 hover:scale-105 {{ $card['bg'] }} {{ $card['text'] }}">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-sm font-semibold">{{ $card['label'] }}</span>
-                        <span class="text-2xl">{{ $card['icon'] }}</span>
+                <a href="{{ $card['link'] ?? '#' }}" class="block">
+                    <div
+                        class="p-5 rounded-xl border p-3 shadow-md transition-all duration-200 hover:scale-105
+            {{ $card['bg'] }} {{ $card['text'] }} hover:bg-opacity-80">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-semibold">{{ $card['label'] }}</span>
+                            <span class="text-2xl">{{ $card['icon'] }}</span>
+                        </div>
+                        <div class="text-3xl font-bold">{{ $card['value'] }}</div>
                     </div>
-                    <div class="text-3xl font-bold">{{ $card['value'] }}</div>
-                </div>
+                </a>
             @endforeach
         </div>
 
         {{-- Chart --}}
         <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Statistik Visual Pendaftar</h2>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                Statistik Visual Pendaftar Tahun {{ date('Y') }}
+            </h2>
             <canvas id="pendaftarChart" height="150"></canvas>
         </div>
     </div>
@@ -58,7 +122,7 @@
                 data: {
                     labels: [
                         'Pendaftar', 'Verifikasi Email', 'Data Santri', 'Data Ortu',
-                        'Berkas', 'Bayar Lengkap', 'Bayar Sebagian', 'Pengumuman'
+                        'Berkas', 'Bayar Lengkap', 'Bayar Sebagian', 'Penerimaan Santri'
                     ],
                     datasets: [{
                         label: 'Jumlah',

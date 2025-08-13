@@ -89,9 +89,7 @@ class PembayaranResource extends Resource
                 }])->whereHas('transactions', function ($q) {
                     $q->where('status', 'settlement');
                 })
-
         )
-
             ->columns([
                 TextColumn::make('no')
                     ->label('No')
@@ -138,8 +136,44 @@ class PembayaranResource extends Resource
                     ->label('VA Number'),
 
             ])
-            ->actions([
+            ->filters([
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Status Pembayaran')
+                    ->options([
+                        'pending' => 'Pending',
+                        'berhasil' => 'Berhasil',
+                        'ditolak' => 'Ditolak',
+                    ]),
+                    
+                Tables\Filters\SelectFilter::make('transactions.status')
+                    ->label('Status Transaksi')
+                    ->options([
+                        'pending' => 'Pending',
+                        'settlement' => 'Settlement',
+                        'expire' => 'Expire',
+                        'deny' => 'Deny',
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        if (!empty($data['value'])) {
+                            $query->whereHas('transactions', fn($q) => $q->where('status', $data['value']));
+                        }
+                    }),
+
+                Tables\Filters\SelectFilter::make('transactions.payment_type')
+                    ->label('Metode Pembayaran')
+                    ->options([
+                        'bank_transfer' => 'Bank Transfer',
+                        'echannel' => 'E-Channel',
+                        'gopay' => 'GoPay',
+                        'qris' => 'QRIS',
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        if (!empty($data['value'])) {
+                            $query->whereHas('transactions', fn($q) => $q->where('payment_type', $data['value']));
+                        }
+                    }),
             ])
+            ->actions([])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

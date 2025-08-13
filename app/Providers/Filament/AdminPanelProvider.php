@@ -54,4 +54,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->databaseNotifications();;
     }
+    public function boot(): void
+    {
+        if (config('app.env') === 'production') {
+            \URL::forceScheme('https');
+        }
+    }
 }

@@ -47,5 +47,21 @@ Route::get('/bulk-pay', [MidtransController::class, 'bulkPay'])->name('midtrans.
 // web.php
 Route::get('/verifikasi/{token}', [PendaftaranController::class, 'formPassword']);
 Route::post('/verifikasi/{token}', [PendaftaranController::class, 'setPassword']);
+use App\Models\Pengumuman;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+Route::get('/rekapan-penerimaan', function () {
+    $pengumuman = Pengumuman::with('user')->get();
+    $tanggalCetak = now()->translatedFormat('d F Y');
+    $pengasuh = 'KH. Salman Alfarizi'; // Bisa diambil dari DB
+
+    $pdf = Pdf::loadView('rekapan.penerimaan', [
+        'pengumuman' => $pengumuman,
+        'tanggalCetak' => $tanggalCetak,
+        'pengasuh' => $pengasuh,
+    ])->setPaper('A4', 'portrait');
+
+    return $pdf->stream('rekapan-penerimaan.pdf');
+});
 
 require __DIR__.'/auth.php';
