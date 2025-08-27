@@ -13,7 +13,7 @@
                 <h2 data-aos="fade-up" data-aos-delay="100">"SALAFIYAH KAUMAN PEMALANG"</h2>
                 <p data-aos="fade-up" data-aos-delay="200">"PONDOK PESANTREN /MADRASAH DINIYAH WUSTHO/ ULYA PUTRA-PUTRI"</p>
                 <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
-                    <a href="/form-pendaftaran" class="btn-get-started">Ayo Bergabung</a>
+                    <a href="./form-pendaftaran" class="btn-get-started">Ayo Bergabung</a>
                     <a href="https://www.youtube.com/watch?v=mza4qE7QHaI&t=25s"
                         class="glightbox btn-watch-video d-flex align-items-center"><i
                             class="bi bi-play-circle"></i><span>Watch Video</span></a>
