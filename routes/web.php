@@ -64,4 +64,22 @@ Route::get('/rekapan-penerimaan', function () {
     return $pdf->stream('rekapan-penerimaan.pdf');
 });
 
+Route::get('user/login',fn () => 'Halo login')->name('login');
+
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/admin', fn () => 'Halo Admin');
+});
+
+Route::middleware(['role:superadmin'])->group(function () {
+    Route::get('/superadmin', fn () => 'Halo Superadmin');
+});
+
+Route::middleware(['role:user'])->group(function () {
+    Route::get('/user', fn () => 'Halo User');
+});
+Route::middleware(['role:user,admin,superadmin'])->group(function () {
+    Route::get('/user/login', fn () => 'Admin & Superadmin bisa lihat ini');
+});
+
+
 require __DIR__.'/auth.php';

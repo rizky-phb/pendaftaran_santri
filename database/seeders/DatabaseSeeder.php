@@ -22,5 +22,11 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'password' => bcrypt('12345678'), // Password yang di-hash
         ]);
+        User::factory()->create([
+            'name' => 'superadmin',
+            'email' => 'superadmin@gmail.com',
+            'role' => 'superadmin',
+            'password' => bcrypt('12345678'), // Password yang di-hash
+        ]);
     }
 }
