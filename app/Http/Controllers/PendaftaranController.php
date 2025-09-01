@@ -30,7 +30,6 @@ class PendaftaranController extends Controller
 
     public function store(Request $request)
     {
-        $today = Carbon::today();
 
         // Validasi tanggal sekarang terhadap jadwal pendaftaran
         $today = Carbon::now();
@@ -58,7 +57,7 @@ class PendaftaranController extends Controller
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'email'        => 'required|email|max:255|unique:pendaftarans,email',
-            'no_hp'        => 'required|string|max:20|unique:pendaftarans,no_hp',
+            'no_hp'        => 'required|regex:/^[0-9]{10,20}$/|unique:pendaftarans,no_hp',
             'alamat'       => 'required|string|max:255',
         ], [
             'email.unique' => 'Email sudah terdaftar.',

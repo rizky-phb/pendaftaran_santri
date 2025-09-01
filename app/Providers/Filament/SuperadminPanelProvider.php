@@ -25,14 +25,18 @@ class SuperadminPanelProvider extends PanelProvider
         return $panel
             ->id('superadmin')
             ->path('superadmin')
-            ->colors([
-                'primary' => Color::Amber,
-            ])
+            ->brandName("Salafiyah-Pemalang")
+            ->brandLogo(asset('frontend/assets/img/logo-pondok.png'))
+            ->brandLogoHeight('3rem')
+            ->font('Poppins')    
             ->login()
+            ->colors([
+                'primary' => Color::Emerald,
+            ])
             ->discoverResources(in: app_path('Filament/Superadmin/Resources'), for: 'App\\Filament\\Superadmin\\Resources')
             ->discoverPages(in: app_path('Filament/Superadmin/Pages'), for: 'App\\Filament\\Superadmin\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                \App\Filament\Superadmin\Pages\SuperadminDashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Superadmin/Widgets'), for: 'App\\Filament\\Superadmin\\Widgets')
             ->widgets([

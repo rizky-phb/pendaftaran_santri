@@ -59,9 +59,8 @@ class UserResource extends Resource
                     ->label('Password'),
                 Select::make('role')
                     ->options([
-                        'admin' => 'Admin',
-                        'user' => 'User',
-                        'pengasuh' => 'Pengasuh',
+                        'admin' => 'Panitia',
+                        'user' => 'Calon Santri',
                     ])
                     ->default('user')
                     ->required()
@@ -84,9 +83,16 @@ class UserResource extends Resource
                 TextColumn::make('role')
                     ->badge()
                     ->colors([
-                        'primary' => 'admin',
+                        'info' => 'admin',
                         'success' => 'user',
+                        'danger' => 'superadmin',
                     ])
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'admin' => 'Panitia',
+                        'user' => 'Calon Santri',
+                        'superadmin' => 'Ketua Panitia',
+                        default => ucfirst($state),
+                    })
                     ->sortable(),
 
                 TextColumn::make('created_at')
@@ -97,8 +103,8 @@ class UserResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('role')
                     ->options([
-                        'admin' => 'Admin',
-                        'user' => 'User',
+                        'admin' => 'Panitia',
+                        'user' => 'Calon Santri',
                     ])
                     ->label('Filter by Role'),
             ])

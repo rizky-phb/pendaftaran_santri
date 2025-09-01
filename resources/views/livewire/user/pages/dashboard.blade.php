@@ -1,11 +1,15 @@
 <x-filament::page>
     {{-- Akses Hanya untuk User --}}
-    @if (auth()->user()->role !== 'user')
-        <script>
-            window.location = "{{ url('/admin') }}";
-        </script>
-    @endif
-
+    @if (auth()->user()->role == 'superadmin')
+    <script>
+        window.location = "{{ url('/superadmin') }}";
+    </script>
+@endif
+@if (auth()->user()->role == 'admin')
+    <script>
+        window.location = "{{ url('/admin') }}";
+    </script>
+@endif
     <div class="space-y-6">
         {{-- Judul Selamat Datang --}}
         <div>

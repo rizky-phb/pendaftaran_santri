@@ -1,30 +1,36 @@
-@if (auth()->user()->role !== 'admin')
+
+@if (auth()->user()->role == 'admin')
+    <script>
+        window.location = "{{ url('/admin') }}";
+    </script>
+@endif
+@if (auth()->user()->role == 'user')
     <script>
         window.location = "{{ url('/user') }}";
     </script>
 @endif
 
-<x-filament::page>
+<x-filament::page> 
     <style>
-        @keyframes slideInUp {
-          from {
-            transform: translateY(30px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-        .animate-slide-in-up {
-          animation: slideInUp 0.8s ease-out forwards;
-        }
-        </style>
-        
+    @keyframes slideInUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .animate-slide-in-up {
+      animation: slideInUp 0.8s ease-out forwards;
+    }
+    </style>
+    
     <div class="space-y-6">
         <div>
             <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2 animate-slide-in-up">
-                Dashboard Admin
+                Dashboard SuperAdmin
             </h1>
             <p class="text-gray-600 dark:text-gray-300 animate-slide-in-up" style="animation-delay: 0.3s;">
                 Pantauan real-time pendaftar dan progres pengisian data.
@@ -37,14 +43,14 @@
             @php
                 $total = max(1, $totalPendaftar); // supaya progress bisa dihitung
                 $cards = [
-                    ['label'=>'Total Pendaftar','value'=>1000,'icon'=>'👥','bg'=>'bg-blue-100','text'=>'text-blue-800','link'=>'/admin/users?tableFilters[role][value]=user'],
-                    ['label'=>'Verifikasi Email','value'=>821,'icon'=>'✅','bg'=>'bg-green-100','text'=>'text-green-800','link'=>'/admin/users?tableFilters[role][value]=user'],
-                    ['label'=>'Lengkap Data Santri','value'=>711,'icon'=>'📄','bg'=>'bg-yellow-100','text'=>'text-yellow-800','link'=>'/admin/verifikasi-berkas'],
-                    ['label'=>'Lengkap Data Ortu','value'=>703,'icon'=>'👨‍👩‍👧','bg'=>'bg-purple-100','text'=>'text-purple-800','link'=>'/admin/verifikasi-berkas'],
-                    ['label'=>'Upload Berkas Lengkap','value'=>623,'icon'=>'📎','bg'=>'bg-pink-100','text'=>'text-pink-800','link'=>'/admin/verifikasi-berkas'],
-                    ['label'=>'Sudah Bayar Lengkap','value'=>547,'icon'=>'💰','bg'=>'bg-emerald-100','text'=>'text-emerald-800','link'=>'/admin/pembayarans'],
-                    ['label'=>'Bayar Sebagian','value'=>456,'icon'=>'💳','bg'=>'bg-orange-100','text'=>'text-orange-800','link'=>'/admin/pembayarans'],
-                    ['label'=>'Sudah Diterima','value'=>333,'icon'=>'🎓','bg'=>'bg-indigo-100','text'=>'text-indigo-800','link'=>'/admin/pengumumen'],
+                    ['label'=>'Total Pendaftar','value'=>$totalPendaftar,'icon'=>'👥','bg'=>'bg-blue-100','text'=>'text-blue-800','link'=>'/admin/users?tableFilters[role][value]=user'],
+                    ['label'=>'Verifikasi Email','value'=>$verifikasiEmail,'icon'=>'✅','bg'=>'bg-green-100','text'=>'text-green-800','link'=>'/admin/users?tableFilters[role][value]=user'],
+                    ['label'=>'Lengkap Data Santri','value'=>$lengkapSantri,'icon'=>'📄','bg'=>'bg-yellow-100','text'=>'text-yellow-800','link'=>'/admin/verifikasi-berkas'],
+                    ['label'=>'Lengkap Data Ortu','value'=>$lengkapOrtu,'icon'=>'👨‍👩‍👧','bg'=>'bg-purple-100','text'=>'text-purple-800','link'=>'/admin/verifikasi-berkas'],
+                    ['label'=>'Upload Berkas Lengkap','value'=>$lengkapBerkas,'icon'=>'📎','bg'=>'bg-pink-100','text'=>'text-pink-800','link'=>'/admin/verifikasi-berkas'],
+                    ['label'=>'Sudah Bayar Lengkap','value'=>$lunasPembayaran,'icon'=>'💰','bg'=>'bg-emerald-100','text'=>'text-emerald-800','link'=>'/admin/pembayarans'],
+                    ['label'=>'Bayar Sebagian','value'=>$parsialPembayaran,'icon'=>'💳','bg'=>'bg-orange-100','text'=>'text-orange-800','link'=>'/admin/pembayarans'],
+                    ['label'=>'Sudah Diterima','value'=>$masukPengumuman,'icon'=>'🎓','bg'=>'bg-indigo-100','text'=>'text-indigo-800','link'=>'/admin/pengumumen'],
                 ];
             @endphp
 
@@ -109,14 +115,14 @@
             datasets: [{
                 label: 'Jumlah',
                 data: [
-                    1000,
-                    821,
-                    711,
-                    703,
-                    623,
-                    547,
-                    456,
-                    333,
+                    {{ $totalPendaftar }},
+                    {{ $verifikasiEmail }},
+                    {{ $lengkapSantri }},
+                    {{ $lengkapOrtu }},
+                    {{ $lengkapBerkas }},
+                    {{ $lunasPembayaran }},
+                    {{ $parsialPembayaran }},
+                    {{ $masukPengumuman }}
                 ],
                 backgroundColor: ['#3b82f6','#10b981','#f59e0b','#6366f1','#ec4899','#22c55e','#eab308','#8b5cf6'],
                 borderRadius: 8

@@ -1,4 +1,9 @@
-@if (auth()->user()->role !== 'admin')
+@if (auth()->user()->role == 'superadmin')
+    <script>
+        window.location = "{{ url('/superadmin') }}";
+    </script>
+@endif
+@if (auth()->user()->role == 'user')
     <script>
         window.location = "{{ url('/user') }}";
     </script>

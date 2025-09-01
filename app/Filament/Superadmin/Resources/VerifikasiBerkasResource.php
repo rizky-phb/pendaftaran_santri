@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Admin\Resources;
+namespace App\Filament\Superadmin\Resources;
 
-use App\Filament\Admin\Resources\VerifikasiBerkasResource\Pages;
+use App\Filament\Superadmin\Resources\VerifikasiBerkasResource\Pages;
 use App\Models\User;
 use App\Models\UploadBerkas;
 use Filament\Forms;

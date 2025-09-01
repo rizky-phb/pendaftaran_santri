@@ -12,7 +12,7 @@ use App\Models\Pendaftaran;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Illuminate\Support\Facades\DB;
 
-class AdminDashboard extends BaseDashboard
+class SuperadminDashboard extends BaseDashboard
 {
     protected static ?string $navigationIcon = 'heroicon-o-home';
     protected static string $view = 'livewire.superadmin.pages.dashboard';

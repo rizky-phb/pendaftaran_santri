@@ -13,9 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     #Mengatur agar aplikasi percaya terhadap semua proxy 
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->trustProxies(at: '*');
-        $middleware->alias([
-            'role' => RoleMiddleware::class, // ✅ alias middleware role
-        ]);
+        // $middleware->alias([
+        //     'role' => RoleMiddleware::class, // ✅ alias middleware role
+        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
