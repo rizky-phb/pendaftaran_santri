@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Filament\Actions\Action;
 use Filament\Tables\Filters\SelectFilter; // Tambahkan ini
 use App\Filament\Admin\Resources\TagihanResource\Widgets\SantriBelumBayarTable;
+use App\Filament\Admin\Resources\TagihanResource\Widgets\SantriBayarSebagianTable;
+use App\Filament\Admin\Resources\TagihanResource\Widgets\SantriSudahBayarLunasTable;
 
-class ListTagihan extends ListRecords
-{
+class ListTagihan extends ListRecords{
     protected static string $resource = TagihanResource::class;
 
     public function mount(): void
@@ -63,8 +64,8 @@ class ListTagihan extends ListRecords
     {
         return [
             SantriBelumBayarTable::class,
+            SantriBayarSebagianTable::class,
+            SantriSudahBayarLunasTable::class,
         ];
     }
-
-    
 }
