@@ -58,7 +58,6 @@
                 @php
                     $percent = $total > 0 ? round(($card['value'] / $total) * 100) : 0;
                 @endphp
-                <a href="{{ $card['link'] ?? '#' }}" class="block">
                     <div
                         class="p-5 rounded-xl border shadow-md transition-all duration-200 hover:scale-105 hover:shadow-xl {{ $card['bg'] }} {{ $card['text'] }}">
                         <div class="flex items-center justify-between mb-2">
@@ -70,7 +69,6 @@
                             <div class="h-2 rounded-full {{ $card['text'] }} bg-opacity-70" style="width: {{ $percent }}%"></div>
                         </div>
                     </div>
-                </a>
             @endforeach
         </div>
 

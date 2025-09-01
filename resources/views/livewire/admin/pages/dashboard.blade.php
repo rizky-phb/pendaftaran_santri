@@ -42,14 +42,14 @@
             @php
                 $total = max(1, $totalPendaftar); // supaya progress bisa dihitung
                 $cards = [
-                    ['label'=>'Total Pendaftar','value'=>$totalPendaftar,'icon'=>'👥','bg'=>'bg-blue-100','text'=>'text-blue-800','link'=>'/admin/users?tableFilters[role][value]=user'],
-                    ['label'=>'Verifikasi Email','value'=>$verifikasiEmail,'icon'=>'✅','bg'=>'bg-green-100','text'=>'text-green-800','link'=>'/admin/users?tableFilters[role][value]=user'],
-                    ['label'=>'Lengkap Data Santri','value'=>$lengkapSantri,'icon'=>'📄','bg'=>'bg-yellow-100','text'=>'text-yellow-800','link'=>'/admin/verifikasi-berkas'],
-                    ['label'=>'Lengkap Data Ortu','value'=>$lengkapOrtu,'icon'=>'👨‍👩‍👧','bg'=>'bg-purple-100','text'=>'text-purple-800','link'=>'/admin/verifikasi-berkas'],
-                    ['label'=>'Upload Berkas Lengkap','value'=>$lengkapBerkas,'icon'=>'📎','bg'=>'bg-pink-100','text'=>'text-pink-800','link'=>'/admin/verifikasi-berkas'],
-                    ['label'=>'Sudah Bayar Lengkap','value'=>$lunasPembayaran,'icon'=>'💰','bg'=>'bg-emerald-100','text'=>'text-emerald-800','link'=>'/admin/pembayarans'],
-                    ['label'=>'Bayar Sebagian','value'=>$parsialPembayaran,'icon'=>'💳','bg'=>'bg-orange-100','text'=>'text-orange-800','link'=>'/admin/pembayarans'],
-                    ['label'=>'Sudah Diterima','value'=>$masukPengumuman,'icon'=>'🎓','bg'=>'bg-indigo-100','text'=>'text-indigo-800','link'=>'/admin/pengumumen'],
+                    ['label'=>'Total Pendaftar','value'=>$totalPendaftar,'icon'=>'👥','bg'=>'bg-blue-100','text'=>'text-blue-800'],
+                    ['label'=>'Verifikasi Email','value'=>$verifikasiEmail,'icon'=>'✅','bg'=>'bg-green-100','text'=>'text-green-800'],
+                    ['label'=>'Lengkap Data Santri','value'=>$lengkapSantri,'icon'=>'📄','bg'=>'bg-yellow-100','text'=>'text-yellow-800'],
+                    ['label'=>'Lengkap Data Ortu','value'=>$lengkapOrtu,'icon'=>'👨‍👩‍👧','bg'=>'bg-purple-100','text'=>'text-purple-800'],
+                    ['label'=>'Upload Berkas Lengkap','value'=>$lengkapBerkas,'icon'=>'📎','bg'=>'bg-pink-100','text'=>'text-pink-800'],
+                    ['label'=>'Sudah Bayar Lengkap','value'=>$lunasPembayaran,'icon'=>'💰','bg'=>'bg-emerald-100','text'=>'text-emerald-800'],
+                    ['label'=>'Bayar Sebagian','value'=>$parsialPembayaran,'icon'=>'💳','bg'=>'bg-orange-100','text'=>'text-orange-800'],
+                    ['label'=>'Sudah Diterima','value'=>$masukPengumuman,'icon'=>'🎓','bg'=>'bg-indigo-100','text'=>'text-indigo-800'],
                 ];
             @endphp
 
@@ -57,7 +57,6 @@
                 @php
                     $percent = $total > 0 ? round(($card['value'] / $total) * 100) : 0;
                 @endphp
-                <a href="{{ $card['link'] ?? '#' }}" class="block">
                     <div
                         class="p-5 rounded-xl border shadow-md transition-all duration-200 hover:scale-105 hover:shadow-xl {{ $card['bg'] }} {{ $card['text'] }}">
                         <div class="flex items-center justify-between mb-2">
@@ -69,7 +68,6 @@
                             <div class="h-2 rounded-full {{ $card['text'] }} bg-opacity-70" style="width: {{ $percent }}%"></div>
                         </div>
                     </div>
-                </a>
             @endforeach
         </div>
 

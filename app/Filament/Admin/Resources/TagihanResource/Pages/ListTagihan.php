@@ -66,9 +66,5 @@ class ListTagihan extends ListRecords
         ];
     }
 
-    // Biar widget-nya full width (opsional)
-    protected function getFooterWidgetsColumns(): int|array
-    {
-        return 1; // atau ['sm' => 1, 'lg' => 1]
-    }
+    
 }
