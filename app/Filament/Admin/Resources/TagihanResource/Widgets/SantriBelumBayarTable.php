@@ -19,7 +19,7 @@ class SantriBelumBayarTable extends BaseWidget
             ->query(
                 User::query()
                     // pengguna yang masih punya tagihan pending
-                    ->whereHas('pembayaran', fn ($q) => $q->where('status', 'pending'))
+                    ->whereHas('pembayaran', fn ($q) => $q->where('status', 'menunggu'))
                     // opsional: tampilkan total semua pembayaran (atau bisa hitung pending saja)
                     ->withCount('pembayaran')
             )
