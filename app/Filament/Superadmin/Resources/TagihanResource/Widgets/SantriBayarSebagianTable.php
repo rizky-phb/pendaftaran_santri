@@ -1,5 +1,5 @@
 <?php
-namespace App\Filament\Admin\Resources\TagihanResource\Widgets;
+namespace App\Filament\Superadmin\Resources\TagihanResource\Widgets;
 
 use App\Models\User;
 use Filament\Tables;
