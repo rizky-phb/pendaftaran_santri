@@ -17,8 +17,8 @@ class SantriSudahBayarLunasTable extends BaseWidget
         return $table
             ->query(
                 User::query()
-                    ->whereHas('pembayaran', fn ($q) => $q->where('status', 'lunas'))
-                    ->withSum(['pembayaran as total_lunas' => fn($q) => $q->where('status', 'lunas')], 'jumlah')
+                    ->whereHas('pembayaran', fn ($q) => $q->where('status', 'berhasil'))
+                    ->withSum(['pembayaran as total_lunas' => fn($q) => $q->where('status', 'berhasil')], 'jumlah')
             )
             ->columns([
                 TextColumn::make('name')->label('Nama Santri')->searchable()->sortable(),

@@ -17,9 +17,9 @@ class SantriBayarSebagianTable extends BaseWidget
         return $table
             ->query(
                 User::query()
-                    ->whereHas('pembayaran', fn ($q) => $q->where('status', 'sebagian'))
-                    ->withSum(['pembayaran as total_dibayar' => fn($q) => $q->where('status', 'sebagian')], 'jumlah')
-                    ->withSum(['pembayaran as total_tagihan' => fn($q) => $q->whereIn('status', ['sebagian', 'menunggu'])], 'jumlah')
+                    ->whereHas('pembayaran', fn ($q) => $q->where('status', 'berhasil'))
+                    ->withSum(['pembayaran as total_dibayar' => fn($q) => $q->where('status', 'berhasil')], 'jumlah')
+                    ->withSum(['pembayaran as total_tagihan' => fn($q) => $q->whereIn('status', ['berhasil', 'menunggu'])], 'jumlah')
             )
             ->columns([
                 TextColumn::make('name')->label('Nama Santri')->searchable()->sortable(),
