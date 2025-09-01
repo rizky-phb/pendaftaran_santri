@@ -28,7 +28,7 @@ class TagihanResource extends Resource
 
     protected static ?string $navigationLabel = 'Tagihan'; // Label di sidebar
 
-    protected static ?string $pluralModelLabel = 'List Pembayaran'; // Nama plural
+    protected static ?string $pluralModelLabel = 'List Tagihan'; // Nama plural
 
     protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
     protected static ?int $navigationSort = 4; // ← Tambahkan ini untuk posisi

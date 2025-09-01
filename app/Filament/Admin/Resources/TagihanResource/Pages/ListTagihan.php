@@ -8,6 +8,7 @@ use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
 use Filament\Actions\Action;
 use Filament\Tables\Filters\SelectFilter; // Tambahkan ini
+use App\Filament\Admin\Resources\TagihanResource\Widgets\SantriBelumBayarTable;
 
 class ListTagihan extends ListRecords
 {
@@ -20,7 +21,7 @@ class ListTagihan extends ListRecords
             exit;
         }
     }
-
+   
     protected function getHeaderActions(): array
     {
         return [
@@ -56,5 +57,18 @@ class ListTagihan extends ListRecords
                 ->attribute('status') // kolom di database
                 ->default(null),
         ];
+    }
+    // Taruh widget di bawah tabel utama
+    protected function getFooterWidgets(): array
+    {
+        return [
+            SantriBelumBayarTable::class,
+        ];
+    }
+
+    // Biar widget-nya full width (opsional)
+    protected function getFooterWidgetsColumns(): int|array
+    {
+        return 1; // atau ['sm' => 1, 'lg' => 1]
     }
 }
