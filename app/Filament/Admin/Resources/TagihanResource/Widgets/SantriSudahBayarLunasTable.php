@@ -21,12 +21,16 @@ class SantriSudahBayarLunasTable extends BaseWidget
                         'pembayaran as jumlah_berhasil' => fn($q) => $q->where('status', 'berhasil'),
                         'pembayaran as jumlah_menunggu' => fn($q) => $q->where('status', 'menunggu'),
                     ])
+                    ->withSum(['pembayaran as total_lunas' => fn($q) => $q->where('status', 'berhasil')], 'jumlah')
                     ->havingRaw('jumlah_berhasil > 0 AND jumlah_berhasil = (jumlah_berhasil + jumlah_menunggu)')
             )
             ->columns([
                 TextColumn::make('name')->label('Nama Santri')->searchable()->sortable(),
                 TextColumn::make('jumlah_berhasil')->label('Pembayaran Berhasil')->sortable(),
-                TextColumn::make('jumlah_menunggu')->label('Pembayaran Menunggu')->sortable(),
+                TextColumn::make('total_lunas')
+                                ->label('Total Nominal Dibayar')
+                                ->money('IDR') // tampilkan format uang
+                                ->sortable(),
             ])
             ->paginated(true);
     }
