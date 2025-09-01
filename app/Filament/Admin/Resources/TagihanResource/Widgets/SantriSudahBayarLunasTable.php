@@ -1,4 +1,4 @@
-<?php
+<?php 
 namespace App\Filament\Admin\Resources\TagihanResource\Widgets;
 
 use App\Models\User;
@@ -17,15 +17,16 @@ class SantriSudahBayarLunasTable extends BaseWidget
         return $table
             ->query(
                 User::query()
-                    ->whereHas('pembayaran', fn ($q) => $q->where('status', 'berhasil'))
-                    ->withCount('pembayaran')
+                    ->withCount([
+                        'pembayaran as jumlah_berhasil' => fn($q) => $q->where('status', 'berhasil'),
+                        'pembayaran as jumlah_menunggu' => fn($q) => $q->where('status', 'menunggu'),
+                    ])
+                    ->havingRaw('jumlah_berhasil > 0 AND jumlah_berhasil = (jumlah_berhasil + jumlah_menunggu)')
             )
             ->columns([
                 TextColumn::make('name')->label('Nama Santri')->searchable()->sortable(),
-                TextColumn::make('total_lunas')
-                    ->label('Total Dibayar')
-                    ->money('IDR')
-                    ->sortable(),
+                TextColumn::make('jumlah_berhasil')->label('Pembayaran Berhasil')->sortable(),
+                TextColumn::make('jumlah_menunggu')->label('Pembayaran Menunggu')->sortable(),
             ])
             ->paginated(true);
     }
