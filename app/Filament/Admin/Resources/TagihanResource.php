@@ -2,7 +2,7 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Filament\Admin\Resources\PembayaranResource\Pages;
+use App\Filament\Admin\Resources\TagihanResource\Pages;
 use App\Models\Pembayaran;
 use Filament\Resources\Resource;
 use Filament\Forms;
@@ -20,15 +20,15 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Redirect;
-class PembayaranResource extends Resource
+class TagihanResource extends Resource
 {
     protected static ?string $model = Pembayaran::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-credit-card';
 
-    protected static ?string $navigationLabel = 'Pembayaran'; // Label di sidebar
+    protected static ?string $navigationLabel = 'Tagihan'; // Label di sidebar
 
-    protected static ?string $pluralModelLabel = 'List Pembayaran yg Berhasil'; // Nama plural
+    protected static ?string $pluralModelLabel = 'List Pembayaran'; // Nama plural
 
     protected static ?string $navigationGroup = 'Alur Pendaftaran'; // Group menu
     protected static ?int $navigationSort = 4; // ← Tambahkan ini untuk posisi
@@ -56,7 +56,7 @@ class PembayaranResource extends Resource
                         'lainnya' => 'Lainnya',
                     ])
                     ->required()
-                    ->label('Jenis Pembayaran'),
+                    ->label('Jenis Tagihan'),
 
                 TextInput::make('jumlah')
                     ->numeric()
@@ -83,13 +83,6 @@ class PembayaranResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-        ->query(
-                Pembayaran::with(['user.santri', 'transactions' => function ($q) {
-                    $q->orderByDesc('created_at'); // atau pakai latest() jika kamu mau transaksi terbaru
-                }])->whereHas('transactions', function ($q) {
-                    $q->where('status', 'settlement');
-                })
-        )
             ->columns([
                 TextColumn::make('no')
                     ->label('No')
@@ -102,13 +95,13 @@ class PembayaranResource extends Resource
 
                         return ($page - 1) * $perPage + $index + 1;
                     }),
-                TextColumn::make('user.santri.nama_lengkap')
-                    ->label('Nama Santri')
+                TextColumn::make('user.name')
+                    ->label('username')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('jenis_pembayaran')
-                    ->label('Nama Pembayaran')
+                    ->label('Nama Tagihan')
                     ->searchable()
                     ->sortable(),
 
@@ -117,61 +110,21 @@ class PembayaranResource extends Resource
                     ->sortable(),
 
                 TextColumn::make('status')
-                    ->label('Status tagihan')
+                    ->label('Status')
+                    ->formatStateUsing(fn ($state) => $state === 'menunggu' ? 'belum bayar' : $state)
                     ->sortable(),
-
-                TextColumn::make('transactions.0.status')
-                    ->label('Status transaksi'),
-
-                TextColumn::make('transactions.0.payment_type')
-                    ->label('Payment Type'),
-
-                TextColumn::make('transactions.0.transaction_time')
-                    ->label('Waktu Transaksi'),
-
-                TextColumn::make('transactions.0.bank')
-                    ->label('Bank'),
-
-                TextColumn::make('transactions.0.va_number')
-                    ->label('VA Number'),
 
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
-                    ->label('Status Pembayaran')
+                    ->label('Status Tagihan')
                     ->options([
                         'pending' => 'Pending',
+                        'menunggu' => 'Belum bayar',
                         'berhasil' => 'Berhasil',
                         'ditolak' => 'Ditolak',
                     ]),
 
-                Tables\Filters\SelectFilter::make('transactions.status')
-                    ->label('Status Transaksi')
-                    ->options([
-                        'pending' => 'Pending',
-                        'settlement' => 'Settlement',
-                        'expire' => 'Expire',
-                        'deny' => 'Deny',
-                    ])
-                    ->query(function (Builder $query, array $data) {
-                        if (!empty($data['value'])) {
-                            $query->whereHas('transactions', fn($q) => $q->where('status', $data['value']));
-                        }
-                    }),
-
-                Tables\Filters\SelectFilter::make('transactions.payment_type')
-                    ->label('Metode Pembayaran')
-                    ->options([
-                        'bank_transfer' => 'Bank Transfer',
-                        'echannel' => 'E-Channel',
-                        'gopay' => 'GoPay',
-                        'qris' => 'QRIS',
-                    ])
-                    ->query(function (Builder $query, array $data) {
-                        if (!empty($data['value'])) {
-                            $query->whereHas('transactions', fn($q) => $q->where('payment_type', $data['value']));
-                        }
-                    }),
             ])
             ->actions([])
             ->bulkActions([
@@ -191,7 +144,7 @@ class PembayaranResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPembayaran::route('/'),
+            'index' => Pages\ListTagihan::route('/'),
         ];
     }
 }
