@@ -21,3 +21,4 @@ class CreateTagihan extends CreateRecord
         return static::getResource()::getUrl('index');
     }
 }
+

@@ -39,3 +39,4 @@ class SantriBelumBayarTable extends BaseWidget
             ->paginated(true);
     }
 }
+

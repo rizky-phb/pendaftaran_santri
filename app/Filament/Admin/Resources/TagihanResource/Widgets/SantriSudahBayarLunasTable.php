@@ -35,3 +35,4 @@ class SantriSudahBayarLunasTable extends BaseWidget
             ->paginated(true);
     }
 }
+

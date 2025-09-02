@@ -40,3 +40,4 @@ class SantriBayarSebagianTable extends BaseWidget
             ->paginated(true);
     }
 }
+
